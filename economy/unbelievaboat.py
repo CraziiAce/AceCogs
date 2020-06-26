@@ -31,7 +31,7 @@ class Starry(Wallet, Roulette, SettingsMixin, commands.Cog, metaclass=CompositeM
     def format_help_for_context(self, ctx):
         """Thanks Quinn."""
         pre_processed = super().format_help_for_context(ctx)
-        return f"{pre_processed}\nCog Version: {self.__version__}"
+        return f"{pre_processed}\nMade by ☯𝕙𝕞𝕞☯#3062"
 
     def __init__(self, bot):
         super().__init__()
