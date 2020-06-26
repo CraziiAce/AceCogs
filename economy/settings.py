@@ -13,15 +13,15 @@ from .functions import chunks
 class SettingsMixin(MixinMeta):
     """Settings."""
 
-    @commands.group(name="unbset", aliases=["unb-se;"])
+    @commands.group(name="ecoset", aliases=["eco-se;"])
     @commands.guild_only()
-    async def unb_set(self, ctx):
+    async def eco_set(self, ctx):
         """Manage various settings for the economy system."""
 
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="cooldown")
+    @eco_set.command(name="cooldown")
     async def cooldown_set(
         self,
         ctx,
@@ -58,7 +58,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="payout", usage="<work | crime> <min | max> <amount>")
+    @eco_set.command(name="payout", usage="<work | crime> <min | max> <amount>")
     async def payout_set(self, ctx, job: str, min_or_max: str, amount: int):
         """Set the min or max payout for working or crimes."""
         if job not in ["work", "crime"]:
@@ -73,7 +73,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="betting", usage="<min | max> <amount>")
+    @eco_set.command(name="betting", usage="<min | max> <amount>")
     async def betting_set(self, ctx, min_or_max: str, amount: int):
         """Set the min or max betting amounts."""
         if min_or_max not in ["max", "min"]:
@@ -86,7 +86,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.group(name="wallet")
+    @eco_set.group(name="wallet")
     async def wallet_set(self, ctx):
         """Wallet Settings."""
 
@@ -117,7 +117,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="failure-rate", usage="<rob | crime> <amount>", aliases=["failurerate"])
+    @eco_set.command(name="failure-rate", usage="<rob | crime> <amount>", aliases=["failurerate"])
     async def failure_set(self, ctx, job: str, amount: int):
         """Set the failure rate for crimes and robbing."""
         if job not in ["rob", "crime"]:
@@ -132,7 +132,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="fine-rate", usage="<min | max> <amount>", aliases=["finerate"])
+    @eco_set.command(name="fine-rate", usage="<min | max> <amount>", aliases=["finerate"])
     async def fine_set(self, ctx, min_or_max: str, amount: int):
         """Set the min or max fine rate for crimes."""
         if min_or_max not in ["max", "min"]:
@@ -145,7 +145,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="interest-rate", usage="<amount>", aliases=["interestrate"])
+    @eco_set.command(name="interest-rate", usage="<amount>", aliases=["interestrate"])
     async def interest_set(self, ctx, amount: int):
         """Set the interest rate if unable to pay a fine from wallet."""
         if amount < 1 or amount > 99:
@@ -156,7 +156,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @commands.guild_only()
     @check_global_setting_admin()
-    @unb_set.command(name="add-reply")
+    @eco_set.command(name="add-reply")
     async def add_reply(self, ctx, job, *, reply: str):
         """Add a custom reply for working or crime.
 
@@ -178,7 +178,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @commands.guild_only()
     @check_global_setting_admin()
-    @unb_set.command(name="del-reply")
+    @eco_set.command(name="del-reply")
     async def del_reply(self, ctx, job, *, id: int):
         """Delete a custom reply."""
         if job not in ["work", "crime"]:
@@ -196,7 +196,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="list-replies")
+    @eco_set.command(name="list-replies")
     async def list_reply(self, ctx, job):
         """List custom replies."""
         if job not in ["work", "crime"]:
@@ -222,7 +222,7 @@ class SettingsMixin(MixinMeta):
     @checks.admin()
     @check_global_setting_admin()
     @commands.guild_only()
-    @unb_set.command(name="default-replies", usage="<enable | disable>")
+    @eco_set.command(name="default-replies", usage="<enable | disable>")
     async def default_replies(self, ctx, enable: bool):
         """Whether to use the default replies to work and crime."""
         conf = await self.configglobalcheck(ctx)
@@ -273,7 +273,7 @@ class SettingsMixin(MixinMeta):
         )
         await ctx.maybe_send_embed(msg)
 
-    @unb_set.command()
+    @eco_set.command()
     @check_global_setting_admin()
     @checks.admin()
     @commands.guild_only()
@@ -289,7 +289,7 @@ class SettingsMixin(MixinMeta):
         cooldownmsg = "Work Cooldown: `{}`\nCrime Cooldown: `{}`\nRob Cooldown: `{}`".format(
             workcd, crimecd, robcd
         )
-        embed = discord.Embed(colour=ctx.author.colour, title="Economy Settings")
+        embed = discord.Embed(colour=ctx.author.colour, title="Starry Settings")
         embed.add_field(
             name="Using Default Replies?",
             value="Yes" if data["defaultreplies"] else "No",
