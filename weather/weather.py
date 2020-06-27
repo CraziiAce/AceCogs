@@ -10,7 +10,7 @@ class Weather(commands.Cog):
         self.session = aiohttp.ClientSession()
 
     @commands.command()
-    async def weather(self, ctx, zip_code: [int]):
+    async def weather(self, ctx, zip_code: int):
         """Get the weather of a city/town by its zip code"""
         # Code:
         async def fetch(session, url):
