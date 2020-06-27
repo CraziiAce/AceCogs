@@ -2,8 +2,8 @@ from redbot.core import commands
 import aiohttp
 import asyncio
 
-class API(commands.Cog):
-    """Interact with various APIs"""
+class Weather(commands.Cog):
+    """Get the day's weather"""
 
     def __init__(self, bot):
         self.bot = bot
