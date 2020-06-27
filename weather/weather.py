@@ -5,7 +5,7 @@ import asyncio
 class Weather(commands.Cog):
     """Retreive weather for an area based on zip code (us only for now)"""
 
-     def __init__(self, bot):
+    def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
 
