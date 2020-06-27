@@ -1,2 +1,5 @@
 # something
-<code>[p]repo add stuff https://github.com/LordWaffle27/stuff<br>[p]cog list stuff<br>[p]cog install stuff [cogname]<br>load cogname</code>
+<code>[p]repo add stuff https://github.com/LordWaffle27/stuff</code>
+<code>[p]cog list stuff</code>
+<code>[p]cog install stuff [cogname]</code>
+<code>load [cogname]</code>
