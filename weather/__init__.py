@@ -1,5 +1,5 @@
-from .weather import Weather
+from .weather import API
 
 
 def setup(bot):
-    bot.add_cog(Weather(bot))
+    bot.add_cog(API(bot))
