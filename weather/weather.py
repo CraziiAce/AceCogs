@@ -26,4 +26,4 @@ class Weather(commands.Cog):
                     color=0x0276FD,
             )
             embed.add_field(name='Location:', value=f"**City:** {weather_response['name']}\n**Longitude: {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}", inline=False)
-            await ctx.send(embed)
+            await ctx.send(embed=embed)
