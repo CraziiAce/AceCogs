@@ -15,4 +15,4 @@ class Weather(commands.Cog):
         # Code:
         async with aiohttp.ClientSession() as session:
             response = session.get("http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0")
-        await ctx.send(response.content)
+        await ctx.send(response)
