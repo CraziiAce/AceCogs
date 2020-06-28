@@ -22,6 +22,7 @@ class Weather(commands.Cog):
             embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}",
                     description=(zip_code,)
-                    color=0x0276FD,)
+                    color=0x0276FD,
+            )
                     embed.add_field('Location:',f'**City:** {weather_response['name']}\n**Longitude: {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}', inline=False)
                 
