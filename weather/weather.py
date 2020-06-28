@@ -14,10 +14,6 @@ class Weather(commands.Cog):
         """Get the weather of a city/town by its zip code"""
         # Code:
 
-        
-        async with session.get(url) as response:
-            return await response.text()
-
         async with aiohttp.ClientSession() as session:
             response = session.get("http://api.openweathermap.org/data/2.5/weather?zip=" + int(zip_code) + "&appid=168ced82a72953d81d018f75eec64aa0")
         await ctx.send(response.content)
