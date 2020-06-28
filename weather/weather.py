@@ -4,7 +4,7 @@ import asyncio
 import json
 
 class Weather(commands.Cog):
-    """Get the day's weather"""
+    """Get the day's weather or other information"""
 
     def __init__(self, bot):
         self.bot = bot
@@ -15,7 +15,7 @@ class Weather(commands.Cog):
         """Get the weather of a city/town by its zip code"""
         # Code:
         async with aiohttp.ClientSession() as session:
-            url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0"
+            url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
             async with session.get(url) as response:
                 weather_response = await response.json()
-            await ctx.send(f"Longitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}")
+            await ctx.send(f"Specified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\nCurrent Temp: {weather_response[temp]}\nDaily High: {weather_response[temp_max]}")
