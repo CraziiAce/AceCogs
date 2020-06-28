@@ -18,4 +18,4 @@ class Weather(commands.Cog):
             url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
             async with session.get(url) as response:
                 weather_response = await response.json()
-            await ctx.send(f"\nGeographical info: \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\nTemperature Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}Daily High: {weather_response['main']['temp_max']}\nDaily Low" {weather_response['main']['temp_min']")
+            await ctx.send(f"\nGeographical info: \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\nTemperature Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}Daily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}")
