@@ -10,9 +10,12 @@ class Weather(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-
-    @commands.command()
-    async def weather(self, ctx, zip_code:str):
+    @commands.group()
+    async def weather(self, ctx)
+        """Get the weather of a specified area"""
+        pass
+    @weather.command()
+    async def zip(self, ctx, zip_code:str):
         """Get the weather of a city/town by its zip code"""
         # Code:
         async with aiohttp.ClientSession() as session:
@@ -25,5 +28,6 @@ class Weather(commands.Cog):
                     description=zip_code,
                     color=0x0276FD,
             )
-            embed.add_field(name='Location:', value=f"**City:** {weather_response['name']}\n**Longitude: {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}", inline=False)
+            embed.add_field(name='Location:', value=f"**City:** {weather_response['name']}\n**Longitude:** {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}", inline=False)
+            embed.add_field(name='Temperature', value="Current Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}")
             await ctx.send(embed=embed)
