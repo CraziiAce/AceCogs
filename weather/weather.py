@@ -1,6 +1,7 @@
 from redbot.core import commands
 import aiohttp
 import asyncio
+import json
 
 class Weather(commands.Cog):
     """Get the day's weather"""
@@ -16,4 +17,4 @@ class Weather(commands.Cog):
         async with aiohttp.ClientSession() as session:
             url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0"
             async with session.get(url) as response:
-                await ctx.send("Longitude:" + response.text.coord.lon() + "\nLatitude:" + response.text.coord.lat())
+                await ctx.send("Longitude:" + response.coord.lon + "\nLatitude:" response.text.coord.lat)
