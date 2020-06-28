@@ -21,7 +21,7 @@ class Weather(commands.Cog):
             await ctx.send(f"\n__**Geographical info:**__ \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\n__**Temperature**__ Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}\n__**Wind Info:")
             embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}",
-                    description=(zip_code,)
+                    description=zip_code,
                     color=0x0276FD,
             )
                     embed.add_field('Location:',f'**City:** {weather_response['name']}\n**Longitude: {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}', inline=False)
