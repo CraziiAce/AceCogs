@@ -11,7 +11,7 @@ class Weather(commands.Cog):
         self.bot = bot
         self.session = aiohttp.ClientSession()
     @commands.group()
-    async def weather(self, ctx)
+    async def weather(self, ctx):
         """Get the weather of a specified area"""
         pass
     @weather.command()
