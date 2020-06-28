@@ -29,7 +29,7 @@ class Weather(commands.Cog):
                     color=0x0276FD,
             )
             embed.add_field(name='Location:', value=f"**City:** {weather_response['name']}\n**Longitude:** {weather_response['coord']['lon']}\n **Latitude:** {weather_response['coord']['lat']}", inline=False)
-            embed.add_field(name='Weather', value=f"Current Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\n**Daily High:** {weather_response['main']['temp_max']}\n**Daily Low:** {weather_response['main']['temp_min']}", inline=False)
+            embed.add_field(name='Weather', value=f"**Current Temp:** {weather_response['main']['temp']}\n**Feels Like:** {weather_response['main']['feels_like']}\n**Daily High:** {weather_response['main']['temp_max']}\n**Daily Low:** {weather_response['main']['temp_min']}\n**Humidity:** {weather_response['main']['humidity']}%\n**Wind:** {weather_response['wind']['speed']}mph", inline=False)
             embed.set_thumbnail(url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             await ctx.send(embed=embed)
