@@ -44,7 +44,8 @@ class Weather(commands.Cog):
             url = "http://api.openweathermap.org/data/2.5/weather?q=" + city_name + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
             async with session.get(url) as response:
                 weather_response = await response.json()
-                sunriseTime = datetime.datetime.utcfromtimestamp(weather_response['sys']['sunrise'])
+                localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
+                sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
             # await ctx.send(f"\n__**Geographical info:**__ \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\n__**Temperature**__ Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}\n__**Wind Info:")
             embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
