@@ -27,7 +27,7 @@ class Weather(commands.Cog):
                 sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                 localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                 sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
-                localTimeUnix = weather_response['dt'] - weather_response['timezone']
+                localTimeUnix = weather_response['dt'] + weather_response['timezone']
                 localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
             # await ctx.send(f"\n__**Geographical info:**__ \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\n__**Temperature**__ Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}\n__**Wind Info:")
             embed = discord.Embed(
@@ -54,7 +54,7 @@ class Weather(commands.Cog):
                 sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                 localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                 sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
-                localTimeUnix = weather_response['dt'] - weather_response['timezone']
+                localTimeUnix = weather_response['dt'] + weather_response['timezone']
                 localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
             # await ctx.send(f"\n__**Geographical info:**__ \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\n__**Temperature**__ Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}\n__**Wind Info:")
             embed = discord.Embed(
