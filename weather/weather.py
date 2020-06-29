@@ -38,7 +38,7 @@ class Weather(commands.Cog):
             embed.set_thumbnail(url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             await ctx.send(embed=embed)
-            await ctx.send(sunriseTime)
+            #await ctx.send(sunriseTime)
     @weather.command()
     async def city(self, ctx, city_name:str):
         """Get the weather of a city/town by its name"""
@@ -64,4 +64,4 @@ class Weather(commands.Cog):
             embed.set_thumbnail(url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
             await ctx.send(embed=embed)
-            await ctx.send(sunriseTime[timeSlice])
+            #await ctx.send(sunriseTime[timeSlice])
