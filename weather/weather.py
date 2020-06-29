@@ -44,7 +44,7 @@ class Weather(commands.Cog):
     async def city(self, ctx, city_name:str, state_code='NA'):
         """Get the weather of a city/town by its name. State code is US only."""
         # Code:
-        if state_code == 'NA'
+        if state_code == 'NA':
             async with aiohttp.ClientSession() as session:
                 url = "http://api.openweathermap.org/data/2.5/weather?q=" + city_name + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                 async with session.get(url) as response:
@@ -66,7 +66,7 @@ class Weather(commands.Cog):
                 embed.set_thumbnail(url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
                 embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
                 await ctx.send(embed=embed)
-        if state_code != 'NA'
+        if state_code != 'NA':
             async with aiohttp.ClientSession() as session:
                     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{state_code}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                     async with session.get(url) as response:
