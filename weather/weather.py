@@ -44,7 +44,7 @@ class Weather(commands.Cog):
             async with session.get(url) as response:
                 weather_response = await response.json()
                 localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
-                sunriseTime = datetime.datetime.strftime(%I).utcfromtimestamp(localSunrise)
+                sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                 localTimeUnix = weather_response['dt'] - weather_response['timezone']
                 localTime = datetime.datetime.strftime(%I).utcfromtimestamp(localTimeUnix)
             # await ctx.send(f"\n__**Geographical info:**__ \nSpecified City: {weather_response['name']}\nLongitude: {weather_response['coord']['lon']}\nLatitude: {weather_response['coord']['lat']}\n__**Temperature**__ Info:\nCurrent Temp: {weather_response['main']['temp']}\nFeels Like: {weather_response['main']['feels_like']}\nDaily High: {weather_response['main']['temp_max']}\nDaily Low: {weather_response['main']['temp_min']}\n__**Wind Info:")
