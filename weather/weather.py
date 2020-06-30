@@ -130,7 +130,7 @@ class Weather(commands.Cog):
                     weather_response = await response.json()
                     if weather_response['cod'] == 404:
                         await ctx.send("An error ocurred: city not found. Please make sure you put in the full state name.")
-                        pass
+                    else:
                     currentUnix = time.time()
                     localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
                     sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
