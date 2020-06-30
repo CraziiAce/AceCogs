@@ -125,7 +125,7 @@ class Weather(commands.Cog):
                 'WY': 'Wyoming',
             }
             async with aiohttp.ClientSession() as session:
-                url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_code]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
+                url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_codeUpper]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                 async with session.get(url) as response:
                     weather_response = await response.json()
                     if weather_response['cod'] == 404:
