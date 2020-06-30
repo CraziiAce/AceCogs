@@ -77,6 +77,7 @@ class Weather(commands.Cog):
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = weather_response['dt'] + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
+                        print(url)
                     embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             description=weather_response['weather'][0]['description'],
