@@ -122,7 +122,7 @@ class Weather(commands.Cog):
                     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_code]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                     async with session.get(url) as response:
                         weather_response = await response.json()
-                        if weather_response['message']="city not found":
+                        if weather_response['cod'] = 404:
                             await ctx.send("An error ocurred: city not found. Please make sure you put in the full state name.")
                             pass
                         localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
