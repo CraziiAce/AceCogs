@@ -68,7 +68,7 @@ class Weather(commands.Cog):
                 embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
                 await ctx.send(embed=embed)
         if state_code != 'NA':
-                us_state_abbrev = {
+            us_state_abbrev = {
                     'AL': 'Alabama',
                     'AK': 'Alaska',
                     'AZ': 'Arizona',
@@ -120,7 +120,7 @@ class Weather(commands.Cog):
                     'WI': 'Wisconsin',
                     'WY': 'Wyoming',
                 }
-            async with aiohttp.ClientSession() as session:
+                async with aiohttp.ClientSession() as session:
                     url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_code]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                     async with session.get(url) as response:
                         weather_response = await response.json()
