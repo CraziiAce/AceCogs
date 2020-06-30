@@ -68,6 +68,7 @@ class Weather(commands.Cog):
                 embed.set_footer(text='Starry | discord.gg/7mSqpXN', icon_url=f"https://openweathermap.org/img/wn/{weather_response['weather'][0]['icon']}@2x.png")
                 await ctx.send(embed=embed)
         if state_code != 'NA':
+            state_codeUpper = state_code.upper()
             us_state_abbrev = {
                 'AL': 'Alabama',
                 'AK': 'Alaska',
