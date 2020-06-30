@@ -30,6 +30,7 @@ class Weather(commands.Cog):
                 localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
             embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
+                    url = f"https://openweathermap.org/city/{weather_response['sys']['id']}",
                     description=weather_response['weather'][0]['description'],
                     color=0x0276FD,
             )
@@ -56,6 +57,7 @@ class Weather(commands.Cog):
                     localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
                 embed = discord.Embed(
                         title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
+                        url = f"https://openweathermap.org/city/{weather_response['sys']['id']}",
                         description=weather_response['weather'][0]['description'],
                         color=0x0276FD,
                 )
@@ -133,6 +135,7 @@ class Weather(commands.Cog):
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
                     embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
+                            url = f"https://openweathermap.org/city/{weather_response['sys']['id']}",
                             description=weather_response['weather'][0]['description'],
                             color=0x0276FD,
                     )
