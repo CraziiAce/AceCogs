@@ -4,6 +4,7 @@ import asyncio
 import json
 import discord
 import datetime
+import time
 
 class Weather(commands.Cog):
     """Get the day's weather or other information"""
@@ -22,11 +23,12 @@ class Weather(commands.Cog):
             url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
             async with session.get(url) as response:
                 weather_response = await response.json()
+                currentUnix = time.time()
                 localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
                 sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                 localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                 sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
-                localTimeUnix = weather_response['dt'] + weather_response['timezone']
+                localTimeUnix = currentUnix + weather_response['timezone']
                 localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
             embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
@@ -49,11 +51,12 @@ class Weather(commands.Cog):
                 url = "http://api.openweathermap.org/data/2.5/weather?q=" + city_name + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                 async with session.get(url) as response:
                     weather_response = await response.json()
+                    currentUnix = time.time()
                     localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
                     sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                     localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                     sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
-                    localTimeUnix = weather_response['dt'] + weather_response['timezone']
+                    localTimeUnix = currentUnix + weather_response['timezone']
                     localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
                 embed = discord.Embed(
                         title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
@@ -128,11 +131,12 @@ class Weather(commands.Cog):
                     if weather_response['cod'] == 404:
                         await ctx.send("An error ocurred: city not found. Please make sure you put in the full state name.")
                         pass
+                    currentUnix = time.time()
                     localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
                     sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                     localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                     sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
-                    localTimeUnix = weather_response['dt'] + weather_response['timezone']
+                    localTimeUnix = currentUnix + weather_response['timezone']
                     localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
                 embed = discord.Embed(
                     title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
