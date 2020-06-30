@@ -17,7 +17,7 @@ class Weather(commands.Cog):
         pass
     @weather.command()
     async def zip(self, ctx, zip_code:str):
-        """Get the weather of a city/town by its zip code. Country codes are currently not supported."""
+        """Get the weather of a city/town by its zip code"""
         # Code:
         async with aiohttp.ClientSession() as session:
             url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip_code + "&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
@@ -128,8 +128,8 @@ class Weather(commands.Cog):
                 url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_codeUpper]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                 async with session.get(url) as response:
                     weather_response = await response.json()
-                    if weather_response['cod'] == 404:
-                        await ctx.send("An error ocurred: city not found. Please make sure you put in the full state name.")
+                    if weather_response['cod'] != 200:
+                        await ctx.send(f"An error ocurred: {weather_response['message']}")
                     else:
                         currentUnix = time.time()
                         localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
