@@ -7,7 +7,58 @@ import datetime
 
 class Weather(commands.Cog):
     """Get the day's weather or other information"""
-
+    us_state_abbrev = {
+    'AL': 'Alabama',
+    'AK': 'Alaska',
+    'AZ': 'Arizona',
+    'AR': 'Arkansas',
+    'CA': 'California',
+    'CO': 'Colorado',
+    'CT': 'Connecticut',
+    'DE': 'Delaware',
+    'FL': 'Florida',
+    'GA': 'Georgia',
+    'HI': 'Hawaii',
+    'ID': 'Idaho',
+    'IL': 'Illinois',
+    'IN': 'Indiana',
+    'IA': 'Iowa',
+    'KS': 'Kansas',
+    'KY': 'Kentucky',
+    'LA': 'Louisiana',
+    'ME': 'Maine',
+    'MD': 'Maryland',
+    'MA': 'Massachusetts',
+    'MI': 'Michigan',
+    'MN': 'Minnesota',
+    'MS': 'Mississippi',
+    'MO': 'Missouri',
+    'MT': 'Montana',
+    'NE': 'Nebraska',
+    'NV': 'Nevada',
+    'NH': 'New Hampshire',
+    'NJ': 'New Jersey',
+    'NM': 'New Mexico',
+    'NY': 'New York',
+    'NC': 'North Carolina',
+    'ND': 'North Dakota',
+    'OH': 'Ohio',
+    'OK': 'Oklahoma',
+    'OR': 'Oregon',
+    'PA': 'Pennsylvania',
+    'RI': 'Rhode Island',
+    'SC': 'South Carolina',
+    'SD': 'South Dakota',
+    'TN': 'Tennessee',
+    'TX': 'Texas',
+    'UT': 'Utah',
+    'VT': 'Vermont',
+    'VA': 'Virginia',
+    'WA': 'Washington',
+    'WV': 'West Virginia',
+    'WI': 'Wisconsin',
+    'WY': 'Wyoming',
+}
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
@@ -68,16 +119,18 @@ class Weather(commands.Cog):
                 await ctx.send(embed=embed)
         if state_code != 'NA':
             async with aiohttp.ClientSession() as session:
-                    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{state_code}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
+                    url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name},{us_state_abbrev[state_code]}&appid=168ced82a72953d81d018f75eec64aa0&units=imperial"
                     async with session.get(url) as response:
                         weather_response = await response.json()
+                        if weather_response['message'] = "city not found"
+                            await ctx.send("An error ocurred: city not found. Please make sure you put in the full state name.")
+                            pass
                         localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
                         sunriseTime = datetime.datetime.utcfromtimestamp(localSunrise)
                         localSunset = weather_response['sys']['sunset'] + weather_response['timezone']
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = weather_response['dt'] + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
-                        print(url)
                     embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             description=weather_response['weather'][0]['description'],
