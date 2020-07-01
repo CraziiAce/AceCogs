@@ -24,7 +24,7 @@ class Weather(commands.Cog):
             async with session.get(url) as response:
                 weather_response = await response.json()
                 if weather_response['cod'] != 200:
-                    await ctx.send(f"An error ocurred: {weather_response['message']}")
+                    await ctx.send(f"An error ocurred: `{weather_response['message']}`. If the issue persists, please contact a support team member with this error code: `{weather_response['cod']}``")
                 else:
                     currentUnix = time.time()
                     localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
@@ -55,7 +55,7 @@ class Weather(commands.Cog):
                 async with session.get(url) as response:
                     weather_response = await response.json()
                     if weather_response['cod'] != 200:
-                        await ctx.send(f"An error ocurred: {weather_response['message']}")
+                        await ctx.send(f"An error ocurred: `{weather_response['message']}`. If the issue persists, please contact a support team member with this error code: `{weather_response['cod']}``")
                     else:
                         currentUnix = time.time()
                         localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
@@ -135,7 +135,7 @@ class Weather(commands.Cog):
                 async with session.get(url) as response:
                     weather_response = await response.json()
                     if weather_response['cod'] != 200:
-                        await ctx.send(f"An error ocurred: {weather_response['message']}")
+                        await ctx.send(f"An error ocurred: `{weather_response['message']}`. If the issue persists, please contact a support team member with this error code: `{weather_response['cod']}``")
                     else:
                         currentUnix = time.time()
                         localSunrise = weather_response['sys']['sunrise'] + weather_response['timezone']
