@@ -8,9 +8,9 @@ class Memes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-    @commands.command()
+    @commands.command(aliases=['meme', 'dankmeme'])
     async def memes(self, ctx):
-        """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit."""
+        """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
         async with aiohttp.ClientSession() as session:
             url = "https://meme-api.herokuapp.com/gimme"
             async with session.get(url) as response:
