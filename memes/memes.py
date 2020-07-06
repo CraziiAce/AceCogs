@@ -31,6 +31,7 @@ class Memes(commands.Cog):
         embed = discord.Embed(
             color = embedColor,
         )
-        embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
+        # embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
         embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
-        await ctx.send(embed=embed)
+        # await ctx.send(embed=embed)
+        await ctx.send(f"https://api.alexflipnote.dev/supreme?text={text}')
