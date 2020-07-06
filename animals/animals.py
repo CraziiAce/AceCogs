@@ -9,7 +9,7 @@ class Animals(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-    @commands.command(aliases = ['cat', 'catto', 'cato', 'gato'])
+    @commands.command(aliases = ['catto', 'cato', 'gato'])
     async def cat(self, ctx):
         """Get a picture of a cute cat."""
         async with aiohttp.ClientSession() as session:
