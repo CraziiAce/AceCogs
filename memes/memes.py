@@ -38,19 +38,3 @@ class Memes(commands.Cog):
         embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={query}")
         embed.set_footer(text=f"Requested by {ctx.author.name}")
         await ctx.send(embed=embed)
-    @commands.command(aliases=['leet', '133t', 'leetspeak'])
-    async def l33t(self, ctx, *, text:str):
-        """Turn text into l33t sp34k. Used by hackers in the 90s"""
-        query = urllib.parse.quote(text)
-        conn = http.client.HTTPSConnection("montanaflynn-l33t-sp34k.p.rapidapi.com")
-
-        headers = {
-            'x-rapidapi-host': "montanaflynn-l33t-sp34k.p.rapidapi.com",
-            'x-rapidapi-key': "c286b2822amsh5b2655424a2f976p1e07bejsnd184ee2093bc"
-        }
-
-        conn.request("GET", f"/encode?text={query}", headers=headers)
-        res = conn.getresponse()
-        data = res.read()
-
-        await ctx.send(data.decode("utf-8"))
