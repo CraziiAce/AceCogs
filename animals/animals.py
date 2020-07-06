@@ -4,8 +4,8 @@ import aiohttp
 import discord
 import urllib.parse
 
-class RandomStuff(commands.Cog):
-    """Retreive the dankest and weirdest stuff internet apis have to offer."""
+class Animals(commands.Cog):
+    """much amaze. very cute. so fur"""
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
