@@ -43,7 +43,7 @@ class Memes(commands.Cog):
         """Get a random Chuck Norris joke."""
         async with aiohttp.ClientSession() as session:
             url = "https://dog.ceo/api/breeds/image/random"
-            async with session.get(url) as response:"
+            async with session.get(url) as response:
                 response = await response.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
