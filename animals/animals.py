@@ -40,7 +40,7 @@ class Animals(commands.Cog):
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
     @commands.command()
-        async def fox(self, ctx):
+    async def fox(self, ctx):
         """Get a picture of a cute fox."""
         async with aiohttp.ClientSession() as session:
             url = "https://randomfox.ca/floof/"
