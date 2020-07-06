@@ -4,7 +4,7 @@ import aiohttp
 import discord
 
 class Memes(commands.Cog):
-    """Retreive the dankest memes Reddit has to offer"""
+    """Retreive the dankest memes Reddit has to offer, and some other stuff"""
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
@@ -23,4 +23,13 @@ class Memes(commands.Cog):
             )
             embed.set_image(url=response['url'])
             embed.set_footer(text=f"r/{response['subreddit']} | Enjoy your dank memes!")
+            await ctx.send(embed=embed)
+    async def supreme(self, ctx, text):
+    """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
+     embedColor = await ctx.embed_colour()
+            embed = discord.Embed(
+                color = embedColor,
+            )
+            embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
+            embed.set_footer(text=f"Requested by <@!{ctx.author.id}")
             await ctx.send(embed=embed)
