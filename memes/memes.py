@@ -50,6 +50,7 @@ class Memes(commands.Cog):
         }
 
         conn.request("GET", f"/encode?text={query}", headers=headers)
+        res = conn.getresponse()
+        data = res.read()
 
-
-    
+        await ctx.send(data.decode("utf-8"))
