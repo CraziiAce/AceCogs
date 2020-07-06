@@ -34,4 +34,4 @@ class Memes(commands.Cog):
         # embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
         # embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
         # await ctx.send(embed=embed)
-        await ctx.send(f"https://api.alexflipnote.dev/supreme?text={text}')
+        await ctx.send(f"https://api.alexflipnote.dev/supreme?text={text}")
