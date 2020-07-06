@@ -33,11 +33,12 @@ class Weather(commands.Cog):
                     sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                     localTimeUnix = currentUnix + weather_response['timezone']
                     localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
+                    embedColor = await ctx.embed_colour()
                     embed = discord.Embed(
                         title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                         url = f"https://openweathermap.org/city/{weather_response['id']}",
                         description=weather_response['weather'][0]['description'],
-                        color=0x0276FD,
+                        color=embedColor,
                     )
                     embed.add_field(name='Location:', value=f"**🏙️ City:** {weather_response['name']}\n**<:coordinates:727254888836235294> Longitude:** {weather_response['coord']['lon']}\n **<:coordinates:727254888836235294> Latitude:** {weather_response['coord']['lat']}", inline=False)
                     embed.add_field(name='Weather', value=f"**🌡️ Current Temp:** {weather_response['main']['temp']}\n**🌡️ Feels Like:** {weather_response['main']['feels_like']}\n**🌡️ Daily High:** {weather_response['main']['temp_max']}\n**🌡️ Daily Low:** {weather_response['main']['temp_min']}\n**<:humidity:727253612778094683> Humidity:** {weather_response['main']['humidity']}%\n**🌬️ Wind:** {weather_response['wind']['speed']} mph", inline=False)
@@ -64,11 +65,12 @@ class Weather(commands.Cog):
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = currentUnix + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
+                    embedColor = await ctx.embed_colour()
                         embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             url = f"https://openweathermap.org/city/{weather_response['id']}",
                             description=weather_response['weather'][0]['description'],
-                            color=0x0276FD,
+                            color=embedColor,
                         )
                         embed.add_field(name='Location:', value=f"**🏙️ City:** {weather_response['name']}\n**<:coordinates:727254888836235294> Longitude:** {weather_response['coord']['lon']}\n **<:coordinates:727254888836235294> Latitude:** {weather_response['coord']['lat']}", inline=False)
                         embed.add_field(name='Weather', value=f"**🌡️ Current Temp:** {weather_response['main']['temp']}\n**🌡️ Feels Like:** {weather_response['main']['feels_like']}\n**🌡️ Daily High:** {weather_response['main']['temp_max']}\n**🌡️ Daily Low:** {weather_response['main']['temp_min']}\n**<:humidity:727253612778094683> Humidity:** {weather_response['main']['humidity']}%\n**🌬️ Wind:** {weather_response['wind']['speed']} mph", inline=False)
@@ -144,11 +146,12 @@ class Weather(commands.Cog):
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = currentUnix + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
+                    embedColor = await ctx.embed_colour()
                         embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             url = f"https://openweathermap.org/city/{weather_response['id']}",
                             description=weather_response['weather'][0]['description'],
-                            color=0x0276FD,
+                            color=embedColor,
                             )
                         embed.add_field(name='Location:', value=f"**🏙️ City:** {weather_response['name']}\n**<:coordinates:727254888836235294> Longitude:** {weather_response['coord']['lon']}\n **<:coordinates:727254888836235294> Latitude:** {weather_response['coord']['lat']}", inline=False)
                         embed.add_field(name='Weather', value=f"**🌡️ Current Temp:** {weather_response['main']['temp']}\n**🌡️ Feels Like:** {weather_response['main']['feels_like']}\n**🌡️ Daily High:** {weather_response['main']['temp_max']}\n**🌡️ Daily Low:** {weather_response['main']['temp_min']}\n**<:humidity:727253612778094683> Humidity:** {weather_response['main']['humidity']}%\n**🌬️ Wind:** {weather_response['wind']['speed']} mph", inline=False)
