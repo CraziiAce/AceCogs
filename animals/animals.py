@@ -11,7 +11,7 @@ class Animals(commands.Cog):
         self.session = aiohttp.ClientSession()
     @commands.command(aliases = ['catto', 'cato', 'gato'])
     async def cat(self, ctx):
-        """Get a picture of a cute cat."""
+        """Get a picture of a cute cat.\nNo, I didn't plagiarize (or get the idea from) dank memer, its just that https://github.com/public-apis/public-apis has fox, dog, and cat."""
         async with aiohttp.ClientSession() as session:
             url = "https://aws.random.cat/meow"
             async with session.get(url) as response:
