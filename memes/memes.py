@@ -25,7 +25,7 @@ class Memes(commands.Cog):
             embed.set_footer(text=f"r/{response['subreddit']} | Enjoy your dank memes!")
             await ctx.send(embed=embed)
     async def supreme(self, ctx, text):
-    """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
+        """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
      embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 color = embedColor,
