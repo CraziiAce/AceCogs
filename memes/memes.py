@@ -27,14 +27,14 @@ class Memes(commands.Cog):
             embed.set_footer(text=f"r/{response['subreddit']} | Enjoy your dank memes!")
             await ctx.send(embed=embed)
     @commands.command()
-    async def supreme(self, ctx, text):
+    async def supreme(self, ctx, *, text:str):
         """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
         query = urllib.parse.quote(text)
-        # embedColor = await ctx.embed_colour()
-        # embed = discord.Embed(
-        #    color = embedColor,
-        # )
-        # embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
-        # embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
-        # await ctx.send(embed=embed)
+        embedColor = await ctx.embed_colour()
+        embed = discord.Embed(
+           color = embedColor,
+        )
+        embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={query}")
+        embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
+        await ctx.send(embed=embed)
         await ctx.send(f"https://api.alexflipnote.dev/supreme?text={query}")
