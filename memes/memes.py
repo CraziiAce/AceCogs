@@ -2,6 +2,8 @@ from redbot.core import commands
 import asyncio
 import aiohttp
 import discord
+import urllib.parse
+
 
 class Memes(commands.Cog):
     """Retreive the dankest memes Reddit has to offer, and some other stuff"""
@@ -27,6 +29,7 @@ class Memes(commands.Cog):
     @commands.command()
     async def supreme(self, ctx, text):
         """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
+        query = urllib.parse.quote(text)
         # embedColor = await ctx.embed_colour()
         # embed = discord.Embed(
         #    color = embedColor,
@@ -34,4 +37,4 @@ class Memes(commands.Cog):
         # embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
         # embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
         # await ctx.send(embed=embed)
-        await ctx.send(f"https://api.alexflipnote.dev/supreme?text={text}")
+        await ctx.send(f"https://api.alexflipnote.dev/supreme?text={query}")
