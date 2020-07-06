@@ -38,3 +38,19 @@ class Memes(commands.Cog):
         embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={query}")
         embed.set_footer(text=f"Requested by {ctx.author.name}")
         await ctx.send(embed=embed)
+    @commands.command(aliases=['cn', 'chuck'])
+    async def chucknorris(self, ctx):
+        """Get a random Chuck Norris joke."""
+        async with aiohttp.ClientSession() as session:
+            url = "https://dog.ceo/api/breeds/image/random"
+            async with session.get(url) as response:"
+                response = await response.json()
+            embedColor = await ctx.embed_colour()
+            embed = discord.Embed(
+                title = "Voilà! A Chuck Norris joke!",
+                url = response['url']
+                color = embedColor,
+                description = response['value']
+            )
+            embed.set_footer(text=f"Requested by {ctx.author.name}")
+            await ctx.send(embed=embed)
