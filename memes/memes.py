@@ -26,10 +26,10 @@ class Memes(commands.Cog):
             await ctx.send(embed=embed)
     async def supreme(self, ctx, text):
         """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
-     embedColor = await ctx.embed_colour()
-            embed = discord.Embed(
-                color = embedColor,
-            )
-            embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
-            embed.set_footer(text=f"Requested by <@!{ctx.author.id}")
-            await ctx.send(embed=embed)
+        embedColor = await ctx.embed_colour()
+        embed = discord.Embed(
+            color = embedColor,
+        )
+        embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={text}")
+        embed.set_footer(text=f"Requested by <@!{ctx.author.id}")
+        await ctx.send(embed=embed)
