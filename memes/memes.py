@@ -15,11 +15,11 @@ class Memes(commands.Cog):
             url = "https://meme-api.herokuapp.com/gimme"
             async with session.get(url) as response:
                 response = await response.json()
-            embedColor = await embed_colour()
+            embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title= response['title'],
                 url = response['postLink'],
-                color= embedColor,
+                color = embedColor,
             )
             embed.set_image(url=response['url'])
             embed.set_footer(text=f"r/{response['subreddit']} | Enjoy your dank memes!")
