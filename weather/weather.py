@@ -65,7 +65,7 @@ class Weather(commands.Cog):
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = currentUnix + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
-                    embedColor = await ctx.embed_colour()
+                        embedColor = await ctx.embed_colour()
                         embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             url = f"https://openweathermap.org/city/{weather_response['id']}",
@@ -146,7 +146,7 @@ class Weather(commands.Cog):
                         sunsetTime = datetime.datetime.utcfromtimestamp(localSunset)
                         localTimeUnix = currentUnix + weather_response['timezone']
                         localTime = datetime.datetime.utcfromtimestamp(localTimeUnix)
-                    embedColor = await ctx.embed_colour()
+                        embedColor = await ctx.embed_colour()
                         embed = discord.Embed(
                             title=f"Weather in {weather_response['name']}, {weather_response['sys']['country']}",
                             url = f"https://openweathermap.org/city/{weather_response['id']}",
