@@ -24,7 +24,7 @@ class Memes(commands.Cog):
                 color = embedColor,
             )
             embed.set_image(url=response['url'])
-            embed.set_footer(text=f"r/{response['subreddit']} | Enjoy your dank memes!")
+            embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name} | Enjoy your dank memes!")
             await ctx.send(embed=embed)
     @commands.command()
     async def supreme(self, ctx, *, text:str):
@@ -35,5 +35,5 @@ class Memes(commands.Cog):
            color = embedColor,
         )
         embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={query}")
-        embed.set_footer(text=f"Requested by <@!{ctx.author.id}>")
+        embed.set_footer(text=f"Requested by {ctx.author.name}")
         await ctx.send(embed=embed)
