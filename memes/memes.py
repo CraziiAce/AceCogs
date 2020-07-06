@@ -48,7 +48,7 @@ class Memes(commands.Cog):
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title = "Voilà! A Chuck Norris joke!",
-                url = response['url']
+                url = response['url'],
                 color = embedColor,
                 description = response['value']
             )
