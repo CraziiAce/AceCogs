@@ -5,13 +5,13 @@ import discord
 import urllib.parse
 
 class Animals(commands.Cog):
-    """much amaze. very cute. so fur"""
+    """much amaze. very cute. so fur.\nNo, I didn't plagiarize (or get the idea from) dank memer, its just that https://github.com/public-apis/public-apis has fox, dog, and cat."""
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
     @commands.command(aliases = ['catto', 'cato', 'gato'])
     async def cat(self, ctx):
-        """Get a picture of a cute cat.\nNo, I didn't plagiarize (or get the idea from) dank memer, its just that https://github.com/public-apis/public-apis has fox, dog, and cat."""
+        """Get a picture of a cute cat."""
         async with aiohttp.ClientSession() as session:
             url = "https://aws.random.cat/meow"
             async with session.get(url) as response:
