@@ -68,5 +68,6 @@ class Memes(commands.Cog):
                 color = embedColor,
                 description = f"XKCD #{response['num']}"
             )
+            embed.set_image(response['img'])
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
