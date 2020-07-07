@@ -15,17 +15,17 @@ class Memes(commands.Cog):
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
         async with aiohttp.ClientSession() as session:
-            url = "https://meme-api.herokuapp.com/gimme"
+            url = "https://api.ksoft.si/images/random-meme"
             async with session.get(url) as response:
                 response = await response.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title= response['title'],
-                url = response['postLink'],
+                url = response['source'],
                 color = embedColor,
             )
             embed.set_image(url=response['url'])
-            embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name} | Enjoy your dank memes!")
+            embed.set_footer(text=f"r/{response['subreddit']} | 👍: {response['upvotes']} | Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
     @commands.command()
     async def supreme(self, ctx, *, text:str):
