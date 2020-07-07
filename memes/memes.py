@@ -54,3 +54,19 @@ class Memes(commands.Cog):
             )
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
+    @comamnds.command(aliases=['txkcd', 'todaysxkcd'])
+    async def todayxkcd(self, ctx):
+        """Get the day's XKCD comic."""
+        async with aiohttp.ClientSession() as session:
+            url = "https://xkcd.com/info.0.json"
+            async with session.get(url) as response:
+                response = await response.json()
+            embedColor = await ctx.embed_colour()
+            embed = discord.Embed(
+                title = response['safe_title'],
+                url = f"xkcd.com/{response['num']}"",
+                color = embedColor,
+                description = f"XKCD #{response['num']}"
+            )
+            embed.set_footer(text=f"Requested by {ctx.author.name}")
+            await ctx.send(embed=embed)
