@@ -54,7 +54,7 @@ class Memes(commands.Cog):
             )
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
-    @comamnds.command(aliases=['txkcd', 'todaysxkcd'])
+    @commands.command(aliases=['txkcd', 'todaysxkcd'])
     async def todayxkcd(self, ctx):
         """Get the day's XKCD comic."""
         async with aiohttp.ClientSession() as session:
