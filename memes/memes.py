@@ -64,7 +64,7 @@ class Memes(commands.Cog):
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title = response['safe_title'],
-                url = f"xkcd.com/{response['num']},
+                url = f"xkcd.com/{response['num']}",
                 color = embedColor,
                 description = f"XKCD #{response['num']}"
             )
