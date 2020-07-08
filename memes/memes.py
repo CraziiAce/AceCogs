@@ -77,7 +77,7 @@ class Memes(commands.Cog):
     async def automeme(self, ctx, delay:int):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         channelID = ctx.channel.id
-        automeme_pairs[channelID]=delay
+        self.automeme_pairs[channelID]=delay
         while True:
             async with aiohttp.ClientSession() as session:
                 url = "https://meme-api.herokuapp.com/gimme"
@@ -92,13 +92,13 @@ class Memes(commands.Cog):
                 embed.set_image(url=response['url'])
                 embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
                 await ctx.send(embed=embed)
-            await asyncio.sleep(automeme_pairs[channelID])
+            await asyncio.sleep(self.automeme_pairs[channelID])
     @automeme.command()
     async def toggle(self, ctx):
         """Please use this in the channel automeme was set up in. If you do not, then the toggle command will not work. Thanks!"""
         toggleID = ctx.channel.id
-        if toggleID in automeme_pairs:
-            del automeme_pairs[toggleID]
+        if toggleID in self.automeme_pairs:
+            del self.automeme_pairs[toggleID]
             await ctx.send(f"Automeme succesfuly turned off for <#{toggleID}>")
         else:
             await ctx.send("An unexpected error occurred. Are you sure automeme was set up for this channel?")
