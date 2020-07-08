@@ -4,6 +4,7 @@ import aiohttp
 import discord
 import urllib.parse
 import http.client
+import time
 
 
 class Memes(commands.Cog):
