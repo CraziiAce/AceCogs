@@ -82,22 +82,25 @@ class Memes(commands.Cog):
     async def automeme(self, ctx, delay:int):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         channelID = ctx.channel.id
-        self.automeme_pairs[channelID]=delay
-        while channelID in self.automeme_pairs:
-            async with aiohttp.ClientSession() as session:
-                url = "https://meme-api.herokuapp.com/gimme"
-                async with session.get(url) as response:
-                    response = await response.json()
-                embedColor = await ctx.embed_colour()
-                embed = discord.Embed(
-                    title = response['title'],
-                    url = response['postLink'],
-                    color = embedColor,
-                )
-                embed.set_image(url=response['url'])
-                embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-                await ctx.send(embed=embed)
-            await asyncio.sleep(self.automeme_pairs[channelID])
+        if delay < 20:
+            await ctx.send('Due to ratelimits placed on my bot, the delay must be over 20 secs. Thanks!')
+        else:
+            self.automeme_pairs[channelID]=delay
+            while channelID in self.automeme_pairs:
+                async with aiohttp.ClientSession() as session:
+                    url = "https://meme-api.herokuapp.com/gimme"
+                    async with session.get(url) as response:
+                        response = await response.json()
+                    embedColor = await ctx.embed_colour()
+                    embed = discord.Embed(
+                        title = response['title'],
+                        url = response['postLink'],
+                        color = embedColor,
+                    )
+                    embed.set_image(url=response['url'])
+                    embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
+                    await ctx.send(embed=embed)
+                await asyncio.sleep(self.automeme_pairs[channelID])
 
     @automeme.command()
     async def toggle(self, ctx):
