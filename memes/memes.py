@@ -78,8 +78,8 @@ class Memes(commands.Cog):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         channelID = ctx.channel.id
         self.automeme_pairs[channelID]=delay
-        if channelID in self.automeme_pairs:
-            while True:
+        while True:
+            if channelID in self.automeme_pairs:
                 async with aiohttp.ClientSession() as session:
                     url = "https://meme-api.herokuapp.com/gimme"
                     async with session.get(url) as response:
