@@ -9,6 +9,7 @@ import time
 
 class Memes(commands.Cog):
     """Retreive the dankest memes Reddit has to offer, and some other stuff"""
+    automemePairs{}
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
@@ -75,7 +76,6 @@ class Memes(commands.Cog):
     @commands.group(invoke_without_command=True)
     async def automeme(self, ctx, delay:int):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
-        automemePairs = {} # channel id: wait time in seconds
         channelID = ctx.channel.id
         automemePairs[channelID]=delay
         while True:
