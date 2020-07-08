@@ -9,7 +9,7 @@ import time
 
 class Memes(commands.Cog):
     """Retreive the dankest memes Reddit has to offer, and some other stuff"""
-    automeme_pairs{}
+    automeme_pairs: dict
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
