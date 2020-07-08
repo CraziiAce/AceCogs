@@ -13,6 +13,7 @@ class Memes(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
+
     @commands.command(aliases=['meme', 'dankmeme'])
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
@@ -29,6 +30,7 @@ class Memes(commands.Cog):
             embed.set_image(url=response['url'])
             embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
+
     @commands.command()
     async def supreme(self, ctx, *, text:str):
         """Make text look like the Supreme logo. If your text is multiple words, please put in double quotes"""
@@ -40,6 +42,7 @@ class Memes(commands.Cog):
         embed.set_image(url=f"https://api.alexflipnote.dev/supreme?text={query}")
         embed.set_footer(text=f"Requested by {ctx.author.name}")
         await ctx.send(embed=embed)
+
     @commands.command(aliases=['cn', 'chuck'])
     async def chucknorris(self, ctx):
         """Get a random Chuck Norris joke."""
@@ -56,6 +59,7 @@ class Memes(commands.Cog):
             )
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
+
     @commands.command(aliases=['txkcd', 'todaysxkcd'])
     async def todayxkcd(self, ctx):
         """Get the day's XKCD comic."""
@@ -73,27 +77,28 @@ class Memes(commands.Cog):
             embed.set_image(url=response['img'])
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
+
     @commands.group(invoke_without_command=True)
     async def automeme(self, ctx, delay:int):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         channelID = ctx.channel.id
         self.automeme_pairs[channelID]=delay
-        while True:
-            if channelID in self.automeme_pairs:
-                async with aiohttp.ClientSession() as session:
-                    url = "https://meme-api.herokuapp.com/gimme"
-                    async with session.get(url) as response:
-                        response = await response.json()
-                    embedColor = await ctx.embed_colour()
-                    embed = discord.Embed(
-                        title = response['title'],
-                        url = response['postLink'],
-                        color = embedColor,
-                    )
-                    embed.set_image(url=response['url'])
-                    embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-                    await ctx.send(embed=embed)
-                await asyncio.sleep(self.automeme_pairs[channelID])
+        while channelID in self.automeme_pairs:
+            async with aiohttp.ClientSession() as session:
+                url = "https://meme-api.herokuapp.com/gimme"
+                async with session.get(url) as response:
+                    response = await response.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = response['title'],
+                    url = response['postLink'],
+                    color = embedColor,
+                )
+                embed.set_image(url=response['url'])
+                embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
+                await ctx.send(embed=embed)
+            await asyncio.sleep(self.automeme_pairs[channelID])
+
     @automeme.command()
     async def toggle(self, ctx):
         """Please use this in the channel automeme was set up in. If you do not, then the toggle command will not work. Thanks!"""
