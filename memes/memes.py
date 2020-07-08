@@ -78,27 +78,28 @@ class Memes(commands.Cog):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         channelID = ctx.channel.id
         self.automeme_pairs[channelID]=delay
-        while True:
-            async with aiohttp.ClientSession() as session:
-                url = "https://meme-api.herokuapp.com/gimme"
-                async with session.get(url) as response:
-                    response = await response.json()
-                embedColor = await ctx.embed_colour()
-                embed = discord.Embed(
-                    title = response['title'],
-                    url = response['postLink'],
-                    color = embedColor,
-                )
-                embed.set_image(url=response['url'])
-                embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-                await ctx.send(embed=embed)
-            await asyncio.sleep(self.automeme_pairs[channelID])
+        if channelID in self.automeme_pairs:
+            while True:
+                async with aiohttp.ClientSession() as session:
+                    url = "https://meme-api.herokuapp.com/gimme"
+                    async with session.get(url) as response:
+                        response = await response.json()
+                    embedColor = await ctx.embed_colour()
+                    embed = discord.Embed(
+                        title = response['title'],
+                        url = response['postLink'],
+                        color = embedColor,
+                    )
+                    embed.set_image(url=response['url'])
+                    embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
+                    await ctx.send(embed=embed)
+                await asyncio.sleep(self.automeme_pairs[channelID])
     @automeme.command()
     async def toggle(self, ctx):
         """Please use this in the channel automeme was set up in. If you do not, then the toggle command will not work. Thanks!"""
         toggleID = ctx.channel.id
         if toggleID in self.automeme_pairs:
-            del self.automeme_pairs[toggleID]
+            del self.automeme_pairs[ctx.channel.id]
             await ctx.send(f"Automeme succesfuly turned off for <#{toggleID}>")
         else:
             await ctx.send("An unexpected error occurred. Are you sure automeme was set up for this channel?")
