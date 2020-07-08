@@ -78,7 +78,6 @@ class Memes(commands.Cog):
         automemePairs = {} # channel id: wait time in seconds
         channelID = ctx.channel.id
         automemePairs[channelID]=delay
-        if 
         while True:
             async with aiohttp.ClientSession() as session:
                 url = "https://meme-api.herokuapp.com/gimme"
