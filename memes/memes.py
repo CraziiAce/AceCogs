@@ -71,7 +71,7 @@ class Memes(commands.Cog):
             embed.set_image(url=response['img'])
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
-    @commands.mod()
+    @commands.command()
     async def automeme(self, ctx, delay:int):
         f"""Tired of manually typing in `{ctx.prefix}meme`? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         automemePairs = {} # channel id: wait time in seconds
