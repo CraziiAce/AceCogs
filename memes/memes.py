@@ -91,4 +91,4 @@ class Memes(commands.Cog):
                 embed.set_image(url=response['url'])
                 embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
                 await ctx.send(embed=embed)
-            await asyncio.wait(automemePairs[channelID])
+            time.sleep(automemePairs[channelID])
