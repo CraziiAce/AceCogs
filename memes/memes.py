@@ -73,20 +73,22 @@ class Memes(commands.Cog):
             await ctx.send(embed=embed)
     @commands.command()
     async def automeme(self, ctx, delay:int):
-        f"""Tired of manually typing in `{ctx.prefix}meme`? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
+        """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         automemePairs = {} # channel id: wait time in seconds
         channelID = ctx.channel.id
         automemePairs[channelID]=delay
-        async with aiohttp.ClientSession() as session:
-            url = "https://meme-api.herokuapp.com/gimme"
-            async with session.get(url) as response:
-                response = await response.json()
-            embedColor = await ctx.embed_colour()
-            embed = discord.Embed(
-                title = response['title'],
-                url = response['postLink'],
-                color = embedColor,
-            )
-            embed.set_image(url=response['url'])
-            embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-            await ctx.send(embed=embed)
+        while True:
+            async with aiohttp.ClientSession() as session:
+                url = "https://meme-api.herokuapp.com/gimme"
+                async with session.get(url) as response:
+                    response = await response.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = response['title'],
+                    url = response['postLink'],
+                    color = embedColor,
+                )
+                embed.set_image(url=response['url'])
+                embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
+                await ctx.send(embed=embed)
+            await asyncio.wait(automemePairs[channelID])
