@@ -72,7 +72,7 @@ class Memes(commands.Cog):
             embed.set_image(url=response['img'])
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
-    @commands.group()
+    @commands.group(invoke_without_command=True)
     async def automeme(self, ctx, delay:int):
         """Tired of manually typing in the `meme` command automatically? Use automeme in the channel you want memes to be posted, and the will automatically be delivered from Reddit."""
         automemePairs = {} # channel id: wait time in seconds
@@ -92,7 +92,7 @@ class Memes(commands.Cog):
                 embed.set_image(url=response['url'])
                 embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
                 await ctx.send(embed=embed)
-            asyncio.sleep(automemePairs[channelID])
+            await asyncio.sleep(automemePairs[channelID])
     @automeme.command()
     async def toggle(self, ctx):
         """Please use this in the channel automeme was set up in. If you do not, then the toggle command will not work. Thanks!"""
