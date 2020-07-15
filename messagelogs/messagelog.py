@@ -12,7 +12,7 @@ class MessageLog(commands.Cog):
     async def messagelog(self, ctx):
         """Tired of looking in audit logs if someone deleted a vulgar message? Use this in the channel you would like messages to be logged in, and they will all be logged."""
         guildID = ctx.guild.id
-        channelID = ctx.channel
+        channelID = ctx.channel.id
         self.message_log_pairs[guildID]=channelID
 
 
@@ -26,7 +26,8 @@ class MessageLog(commands.Cog):
                 color = embedColor,
             )
             embed.set_footer(text=f"Sent by {message.author.name}", icon_url=message.author.avatar_url)
-            await self.message_log_pairs[message.guild.id].send(embed=embed)
+            channel = bot.get_channel(message_log_pairs[message.guild.id])
+            await channel.send(embed=embed)
 
 
 
