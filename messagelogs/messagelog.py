@@ -31,7 +31,7 @@ class MessageLog(commands.Cog):
 
 
 
-    @messagelogs.command()
+    @messagelog.command()
     async def toggle(self, ctx):
         """Please use this in the channel message logs were set up in. If you do not, then the toggle command will not work. Thanks!"""
         toggleID = ctx.guild.id
