@@ -8,7 +8,7 @@ class MessageLog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.group(invoke_without_command=True, aliases=['messagelogs', 'logmessages', 'logmessage')
+    @commands.group(invoke_without_command=True, aliases=['messagelogs', 'logmessages', 'logmessage'])
     async def messagelog(self, ctx):
         """Tired of looking in audit logs if someone deleted a vulgar message? Use this in the channel you would like messages to be logged in, and they will all be logged."""
         guildID = ctx.guild.id
