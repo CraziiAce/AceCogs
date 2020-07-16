@@ -19,14 +19,13 @@ class MessageLog(commands.Cog):
     @commands.Cog.listener() 
     async def on_message_without_command(self, message):
         if message.guild.id in self.message_log_pairs:
-            embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title = 'Message Sent',
                 description = f'Content: {message.content}',
-                color = embedColor,
+                color = 0x32CD32,
             )
             embed.set_footer(text=f"Sent by {message.author.name}", icon_url=message.author.avatar_url)
-            channel = bot.get_channel(message_log_pairs[message.guild.id])
+            channel = self.bot.get_channel(self.message_log_pairs[message.guild.id])
             await channel.send(embed=embed)
 
 
