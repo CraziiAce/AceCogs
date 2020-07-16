@@ -18,7 +18,7 @@ class MessageLog(commands.Cog):
 
     @commands.Cog.listener() 
     async def on_message_without_command(self, message):
-        if message.guild.id in self.message_log_pairs:
+        if message.guild.id in self.message_log_pairs and message.author.bot == False:
             embed = discord.Embed(
                 title = 'Message Sent',
                 description = f'Content: {message.content}',
