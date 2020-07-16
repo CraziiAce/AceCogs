@@ -21,10 +21,10 @@ class MessageLog(commands.Cog):
         if message.guild.id in self.message_log_pairs and message.author.bot == False:
             embed = discord.Embed(
                 title = 'Message Sent',
-                description = f'Content: {message.content}',
+                description = f'Content: {message.content} | [{message.jump_url}]Jump!',
                 color = 0x32CD32,
             )
-            embed.set_footer(text=f"Sent by {message.author.name}", icon_url=message.author.avatar_url)
+            embed.set_footer(text=f"Sent by {message.author.name}#{message.author.discriminator}", icon_url=message.author.avatar_url)
             channel = self.bot.get_channel(self.message_log_pairs[message.guild.id])
             await channel.send(embed=embed)
 
