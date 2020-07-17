@@ -1,4 +1,4 @@
-from redbot.core import commands
+from redbot.core import commands, checks
 import discord
 
 
@@ -9,6 +9,8 @@ class MessageLog(commands.Cog):
         self.bot = bot
     
     @commands.group(invoke_without_command=True, aliases=['messagelogs', 'logmessages', 'logmessage'])
+    @commands.admin()
+    @commands.guild_only()
     async def messagelog(self, ctx):
         """Tired of looking in audit logs if someone deleted a vulgar message? Use this in the channel you would like messages to be logged in, and they will all be logged."""
         guildID = ctx.guild.id
@@ -21,7 +23,7 @@ class MessageLog(commands.Cog):
         if message.guild.id in self.message_log_pairs and message.author.bot == False:
             embed = discord.Embed(
                 title = 'Message Sent',
-                description = f'Content: {message.content} | [{message.jump_url}]Jump!',
+                description = f'Content: {message.content} | [Jump!]({message.jump_url})',
                 color = 0x32CD32,
             )
             embed.set_footer(text=f"Sent by {message.author.name}#{message.author.discriminator}", icon_url=message.author.avatar_url)
