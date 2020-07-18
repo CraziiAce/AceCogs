@@ -18,7 +18,7 @@ class Memes(commands.Cog):
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://api.ksoft.si/images/random-meme', headers={"Authorization": "c1af09b5a14152753b028be23fff8a9e5b040814"}) as resp:
+            async with session.get('https://api.ksoft.si/images/random-meme', headers={"Authorization": "Bearer c1af09b5a14152753b028be23fff8a9e5b040814"}) as resp:
                 response = await resp.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
