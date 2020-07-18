@@ -18,18 +18,17 @@ class Memes(commands.Cog):
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
         async with aiohttp.ClientSession() as session:
-            url = "https://meme-api.herokuapp.com/gimme"
-            async with session.get(url) as response:
-                response = await response.json()
+            async with session.get('https://api.ksoft.si/images/random-meme', headers={"Authorization": "c1af09b5a14152753b028be23fff8a9e5b040814"}) as resp:
+                response = await resp.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
                 title = response['title'],
-                url = response['postLink'],
+                url = response['source'],
                 color = embedColor,
+                description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']})"
             )
-            embed.set_image(url=response['url'])
-            embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-            await ctx.send(embed=embed)
+            embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+            embed.set_image(url=response['image_url'])
 
     @commands.command()
     async def supreme(self, ctx, *, text:str):
@@ -88,18 +87,17 @@ class Memes(commands.Cog):
             self.automeme_pairs[channelID]=delay
             while channelID in self.automeme_pairs:
                 async with aiohttp.ClientSession() as session:
-                    url = "https://meme-api.herokuapp.com/gimme"
-                    async with session.get(url) as response:
-                        response = await response.json()
+                    async with session.get('https://api.ksoft.si/images/random-meme', headers={"Authorization": "c1af09b5a14152753b028be23fff8a9e5b040814"}) as resp:
+                        response = await resp.json()
                     embedColor = await ctx.embed_colour()
                     embed = discord.Embed(
                         title = response['title'],
-                        url = response['postLink'],
+                        url = response['source'],
                         color = embedColor,
+                        description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']})"
                     )
-                    embed.set_image(url=response['url'])
-                    embed.set_footer(text=f"r/{response['subreddit']} | Requested by {ctx.author.name}")
-                    await ctx.send(embed=embed)
+                    embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+                    embed.set_image(url=response['image_url'])
                 await asyncio.sleep(self.automeme_pairs[channelID])
 
     @automeme.command()
