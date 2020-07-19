@@ -68,7 +68,7 @@ class Animals(commands.Cog):
         else: 
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"https://api.ksoft.si/images/rand-reddit/{subreddit}", params={
-                    "remove_nsfw": "True"
+                    "remove_nsfw": True
                     }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
                     response = await resp.json()
                 embedColor = await ctx.embed_colour()
