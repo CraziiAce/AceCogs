@@ -5,25 +5,10 @@ import discord
 import urllib.parse
 
 class Animals(commands.Cog):
-    """much amaze. very cute. so fur.\nNo, I didn't plagiarize (or get the idea from) dank memer, its just that https://github.com/public-apis/public-apis has fox, dog, and cat."""
+    """get some random images."""
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-    @commands.command(aliases = ['catto', 'cato', 'gato'])
-    async def cat(self, ctx):
-        """Get a picture of a cute cat."""
-        async with aiohttp.ClientSession() as session:
-            url = "https://aws.random.cat/meow"
-            async with session.get(url) as response:
-                response = await response.json()
-            embedColor = await ctx.embed_colour()
-            embed = discord.Embed(
-                title = "Voilà! A random cat!",
-                color = embedColor,
-            )
-            embed.set_image(url=response['file'])
-            embed.set_footer(text=f"Requested by {ctx.author.name}")
-            await ctx.send(embed=embed)
     @commands.command(aliases = ['doggo', 'dogg', 'pupper'])
     async def dog(self, ctx):
         """Get a picture of a cute doggo."""
@@ -54,3 +39,23 @@ class Animals(commands.Cog):
             embed.set_image(url=response['image'])
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
+    @commands.command(aliases=['randomaww', 'cuterandom'])
+    async def randomcute
+        """Get a random cute image"""
+        api_key = await self.bot.get_shared_api_tokens("ksoftsi")
+        if api_key.get("api_key") is None:
+            await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
+        else: 
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://api.ksoft.si/images/random-aww', headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    response = await resp.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = response['title'],
+                    url = response['source'],
+                    color = embedColor,
+                    description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']}) | from {response['subreddit']}"
+                )
+                embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+                embed.set_image(url=response['image_url'])
+                await ctx.send(embed=embed)
