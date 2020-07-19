@@ -27,5 +27,5 @@ class Music(commands.Cog):
                     description = response['data'][0]['lyrics']
                 )
                 embed.set_thumbnail(url=response['data'][0]['album_art'])
-                embed.set_footer(text=f"Requested by {ctx.author.name}")
+                embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by KSoft.SI")
             await ctx.send(embed=embed)
