@@ -23,7 +23,6 @@ class Music(commands.Cog):
                 embedColor = await ctx.embed_colour()
                 embed = discord.Embed(
                     title = f"{response['data'][0]['name']} by {response['data'][0]['artist']}",
-                    url = response['postLink'],
                     color = embedColor,
                 )
                 embed.set_thumbnail(url=response['data']['0']['album_art'])
