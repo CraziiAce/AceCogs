@@ -145,5 +145,6 @@ class Memes(commands.Cog):
         embedColor = await ctx.embed_colour()
         embed = discord.Embed(
             color = embedColor
+        )
         embed.set_image(url=f"https://api.alexflipnote.dev/pornhub?text={text1}&text2={text2}")
         await ctx.send(embed=embed)
