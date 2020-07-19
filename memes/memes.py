@@ -119,7 +119,7 @@ class Memes(commands.Cog):
             await ctx.send(f"Automeme succesfuly turned off for <#{toggleID}>")
         else:
             await ctx.send("An unexpected error occurred. Are you sure automeme was set up for this channel?")
-    @commands.command
+    @commands.command()
     async def wikihow(self, ctx):
         """Get a random Wikihow meme"""
         api_key = await self.bot.get_shared_api_tokens("ksoftsi")
@@ -139,7 +139,7 @@ class Memes(commands.Cog):
                 embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
                 embed.set_image(url=response['url'])
                 await ctx.send(embed=embed)
-    @commands.command
+    @commands.command()
     async def pornhub(self, ctx, text1, text2):
         """Make text look like the pornhub logo."""
         embedColor = await ctx.embed_colour()
