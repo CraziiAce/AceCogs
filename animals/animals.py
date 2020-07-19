@@ -59,3 +59,25 @@ class Animals(commands.Cog):
                 embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
                 embed.set_image(url=response['image_url'])
                 await ctx.send(embed=embed)
+    @commands.command
+    async def reddit(self, ctx, subreddit:str):
+        """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well."""
+        api_key = await self.bot.get_shared_api_tokens("ksoftsi")
+        if api_key.get("api_key") is None:
+            await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
+        else: 
+            async with aiohttp.ClientSession() as session:
+                async with session.get('https://api.ksoft.si/images/random-aww', params={
+                    "remove_nsfw": True
+                    }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    response = await resp.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = response['title'],
+                    url = response['source'],
+                    color = embedColor,
+                    description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']}) | from {response['subreddit']}"
+                )
+                embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+                embed.set_image(url=response['image_url'])
+                await ctx.send(embed=embed)
