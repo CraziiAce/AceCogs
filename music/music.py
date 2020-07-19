@@ -25,7 +25,7 @@ class Music(commands.Cog):
                     title = f"{response['data'][0]['name']} by {response['data'][0]['artist']}",
                     color = embedColor,
                 )
-                # embed.set_thumbnail(url=response['data']['0']['album_art'])
+                embed.set_thumbnail(url=response['data']['0']['album_art'])
                 embed.add_field(name="Lyrics:", value=response['data']['0']['lyrics'], inline=False)
                 embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
