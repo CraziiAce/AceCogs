@@ -40,7 +40,7 @@ class Animals(commands.Cog):
             embed.set_footer(text=f"Requested by {ctx.author.name}")
             await ctx.send(embed=embed)
     @commands.command(aliases=['randomaww', 'cuterandom'])
-    async def randomcute
+    async def randomcute(self, ctx):
         """Get a random cute image"""
         api_key = await self.bot.get_shared_api_tokens("ksoftsi")
         if api_key.get("api_key") is None:
