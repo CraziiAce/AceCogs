@@ -136,7 +136,7 @@ class Memes(commands.Cog):
                     color = embedColor,
                     description = f"Can't see the image? [Click Here.]({response['url']})"
                 )
-                embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+                embed.set_footer(text=f"Requested by {ctx.author.name}#{ctx.author.discrimator}")
                 embed.set_image(url=response['url'])
                 await ctx.send(embed=embed)
     @commands.command()
