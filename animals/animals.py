@@ -59,7 +59,7 @@ class Animals(commands.Cog):
                 embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
                 embed.set_image(url=response['image_url'])
                 await ctx.send(embed=embed)
-    @commands.command
+    @commands.command()
     async def reddit(self, ctx, subreddit:str):
         """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well."""
         api_key = await self.bot.get_shared_api_tokens("ksoftsi")
