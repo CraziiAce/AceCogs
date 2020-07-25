@@ -17,7 +17,8 @@ class Finance(commands.Cog):
                 return await ctx.send("The Finnhub API key has not been set. Please set it with `s!set api finnhub api_key <your api key>`")
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}&') as resp:
+                async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}&'), 
+                headers={"Accept": f"application/json"} as resp:
                     response = await resp.json()
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
