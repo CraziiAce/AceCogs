@@ -22,7 +22,7 @@ class Finance(commands.Cog):
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
                 percentage_change_a = response['c'] / response['o']
-                percentage_change_b = percentage_change_a - 100
+                percentage_change_b = percentage_change_a - 1
                 percentage_change_final = percentage_change_b * 100
                 embedColor = await ctx.embed_colour()
                 percentage_gain = True
@@ -35,6 +35,6 @@ class Finance(commands.Cog):
                 if percentage_gain:
                     embed.add_field(name='Prices', value=f"Open: ${response['o']}\nHigh: ${response['h']}\nLow: ${response['l']}\nCurrent: ${response['c']}\nPercentage Gain: <:up_arrow:736390019136356442> %{percentage_change_final}")
                 if not percentage_gain:
-                     embed.add_field(name='Prices', value=f"Open: ${response['o']}\nHigh: ${response['h']}\nLow: ${response['l']}\nCurrent: ${response['c']}\nPercentage Gain: <:down_arrow:736390163839844422> %{percentage_change_final}")
+                     embed.add_field(name='Prices', value=f"Open: ${response['o']}\nHigh: ${response['h']}\nLow: ${response['l']}\nCurrent: ${response['c']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
                 embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by finnhub.io")
             await ctx.send(embed=embed)
