@@ -20,7 +20,7 @@ class Finance(commands.Cog):
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}', 
                 headers={"Accept": "application/json"}) as resp:
-                    response = await resp.json()
+                    response = await response.json(content_type=None)
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
                 percentage_change_a = response['c'] / response['o']
