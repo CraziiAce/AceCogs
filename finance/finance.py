@@ -17,7 +17,9 @@ class Finance(commands.Cog):
                 return await ctx.send("The Tiingo API key has not been set. Please set it with `s!set api tiingo token <your token>`")
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.tiingo_base_url}iex/{stock_ticker}?token={token.get("token")}') as resp:
+                async with session.get(f'{self.tiingo_base_url}iex/{stock_ticker}?token={token.get("token")}', params={
+                    "format":"json"
+                }) as resp:
                     response = await resp.json()
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
