@@ -40,3 +40,4 @@ class Finance(commands.Cog):
                      embed.add_field(name='Prices', value=f"Open: ${response['o']}\nHigh: ${response['h']}\nLow: ${response['l']}\nCurrent: ${response['c']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
                 embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by finnhub.io")
             await ctx.send(embed=embed)
+            print(await response.text())
