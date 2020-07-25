@@ -18,7 +18,7 @@ class Finance(commands.Cog):
         else:
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}', 
-                headers={"Accept": f"application/json"} as resp:) 
+                headers={"Accept": "application/json"}) as resp:
                     response = await resp.json()
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
