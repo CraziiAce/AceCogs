@@ -1,3 +1,4 @@
+
 from redbot.core import checks, commands
 import asyncio
 import aiohttp
@@ -16,11 +17,9 @@ class Finance(commands.Cog):
         if api_key.get("api_key") is None:
                 return await ctx.send("The Finnhub API key has not been set. Please set it with `s!set api finnhub api_key <your api key>`")
         else:
-            stock_ticker.upper()
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}', 
-                headers={"Accept": "application/json"}) as resp:
-                    response = await resp.json(content_type=None)
+                async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}&') as resp:
+                    response = await resp.json()
                 if response == '{}':
                     await ctx.send('An unexpected error occured. Are you sure that is a valid, *US* stock ticker?')
                 percentage_change_a = response['c'] / response['o']
@@ -40,4 +39,3 @@ class Finance(commands.Cog):
                      embed.add_field(name='Prices', value=f"Open: ${response['o']}\nHigh: ${response['h']}\nLow: ${response['l']}\nCurrent: ${response['c']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
                 embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by finnhub.io")
             await ctx.send(embed=embed)
-            print(await response.text())
