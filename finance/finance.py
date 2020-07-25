@@ -17,7 +17,6 @@ class Finance(commands.Cog):
         if api_key.get("api_key") is None:
                 return await ctx.send("The Finnhub API key has not been set. Please set it with `s!set api finnhub api_key <your api key>`")
         else:
-            stock_ticker.upper()
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'{self.finnhub_base_url}quote?symbol={stock_ticker}&') as resp:
                     response = await resp.json()
