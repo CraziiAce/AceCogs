@@ -52,6 +52,8 @@ class Finance(commands.Cog):
                     "format":"json"
                 }) as resp:
                     response = await resp.json()
+                if not response['companyName']:
+                    await ctx.send('That does not look like a valid stock ticker!')
                 embedColor = await ctx.embed_colour()
                 embed = discord.Embed(
                     title = f"Company Data for {response['companyName']}",
