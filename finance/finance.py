@@ -54,6 +54,7 @@ class Finance(commands.Cog):
                     if resp.status != 200:
                         await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
                     response = await resp.json()
+                    return
                 if resp.status == 200:
                     if not response['companyName']:
                         await ctx.send('Sorry, but I could not find data for that company')
