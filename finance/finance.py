@@ -40,7 +40,7 @@ class Finance(commands.Cog):
                     embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
                 embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by IEX Cloud")
             await ctx.send(embed=embed)
-    @commands.command(aliases=['companyprofile', 'cprofile', 'companyinfo', 'cinfo'])
+    @commands.command(aliases=['companyprofile', 'cprofile', 'companyinfo'])
     async def company(self, ctx, stock_ticker:str):
         """Get information about a publicly traded company."""
         token = await self.bot.get_shared_api_tokens("iex")
