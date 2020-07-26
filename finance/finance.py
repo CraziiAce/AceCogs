@@ -51,9 +51,9 @@ class Finance(commands.Cog):
                 async with session.get(f'{self.iex_base_url}stock/{stock_ticker}/company?token={token.get("token")}', params={
                     "format":"json"
                 }) as resp:
-                    response = await resp.json()
                 if resp.status != 200:
                     await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                    response = await resp.json()
                 else:
                     if not response['companyName']:
                         await ctx.send('Sorry, but I could not find data for that company')
