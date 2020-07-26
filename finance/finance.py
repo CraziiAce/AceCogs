@@ -5,7 +5,7 @@ import discord
 
 class Finance(commands.Cog):
     """Get info about stocks/currencies/businesses"""
-    iex_base_url='https://cloud.iexapis.com/stable'
+    iex_base_url='https://cloud.iexapis.com/stable/'
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
