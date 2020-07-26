@@ -40,3 +40,25 @@ class Finance(commands.Cog):
                     embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
                 embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by IEX Cloud")
             await ctx.send(embed=embed)
+    @commands.command(aliases=['companyprofile', 'cprofile'])
+    async def company(self, ctx, stock_ticker:str):
+        """Get information about a publicly traded company."""
+        token = await self.bot.get_shared_api_tokens("iex")
+        if token.get("token") is None:
+                return await ctx.send("The IEX API key has not been set. Please set it with `s!set api iex token <your token>`")
+        else:
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f'{self.iex_base_url}stock/{stock_ticker}/company?token={token.get("token")}', params={
+                    "format":"json"
+                }) as resp:
+                    response = await resp.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = f"Company Data for {response['companyName']}",
+                    color = embedColor,
+                    description = f"{response['description']}\nTraded on the {response['exchange']}",
+                    url = response['website']
+                )
+                if not response['address2']:
+                    embed.add_field(name=f"Company Data for {response['companyName']}", value=f"**CEO:** {response['CEO']}\n**SEC name:** {response['securityName']}\n**Industry:** {response['sector']}\n**Employees:** {response['employees']}\n**Address:** \n{response['companyName']}\n{response['address']}\n{response['city']}, {response['state']} {response['zip']}")
+                await ctx.send(embed=embed)
