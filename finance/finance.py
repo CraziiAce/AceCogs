@@ -1,4 +1,4 @@
-from redbot.core import checks, commands
+from redbot.core import checks, commands, errors
 import asyncio
 import aiohttp
 import discord
@@ -47,12 +47,14 @@ class Finance(commands.Cog):
         if token.get("token") is None:
                 return await ctx.send("The IEX API key has not been set. Please set it with `s!set api iex token <your token>`")
         else:
-            try:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(f'{self.iex_base_url}stock/{stock_ticker}/company?token={token.get("token")}', params={
-                        "format":"json"
-                    }) as resp:
-                        response = await resp.json()
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f'{self.iex_base_url}stock/{stock_ticker}/company?token={token.get("token")}', params={
+                    "format":"json"
+                }) as resp:
+                    response = await resp.json()
+                if resp.status != 200:
+                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                else:
                     if not response['companyName']:
                         await ctx.send('Sorry, but I could not find data for that company')
                     else:
@@ -66,5 +68,3 @@ class Finance(commands.Cog):
                         if not response['address2']:
                             embed.add_field(name=f"Company Data for {response['companyName']}", value=f"**CEO:** {response['CEO']}\n**SEC name:** {response['securityName']}\n**Industry:** {response['sector']}\n**Employees:** {response['employees']}\n**Address:** \n{response['companyName']}\n{response['address']}\n{response['city']}, {response['state']} {response['zip']}")
                         await ctx.send(embed=embed)
-            except ContentTypeError:
-                await ctx.send('It looks like that is an invalid stock ticker!')
