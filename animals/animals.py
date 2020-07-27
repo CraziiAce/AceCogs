@@ -79,7 +79,8 @@ class Animals(commands.Cog):
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"https://api.ksoft.si/images/rand-reddit/{subreddit}", params={
                     "remove_nsfw": "True"
-                    }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:                    if resp.status != 200:
+                    }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    if resp.status != 200:
                         await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
                         return
                     response = await resp.json()
