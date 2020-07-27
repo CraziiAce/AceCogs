@@ -16,7 +16,7 @@ class Animals(commands.Cog):
             url = "https://dog.ceo/api/breeds/image/random"
             async with session.get(url) as response:
                 if response.status != 200:
-                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request.')
                     return
                 response = await response.json()
             embedColor = await ctx.embed_colour()
@@ -34,7 +34,7 @@ class Animals(commands.Cog):
             url = "https://randomfox.ca/floof/"
             async with session.get(url) as response:
                 if response.status != 200:
-                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request.')
                     return
                 response = await response.json()
             embedColor = await ctx.embed_colour()
@@ -56,7 +56,7 @@ class Animals(commands.Cog):
                 async with session.get('https://api.ksoft.si/images/random-aww', headers={
                     "Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
                     if resp.status != 200:
-                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request.')
                         return
                     response = await resp.json()
                 embedColor = await ctx.embed_colour()
@@ -71,7 +71,7 @@ class Animals(commands.Cog):
                 await ctx.send(embed=embed)
     @commands.command()
     async def reddit(self, ctx, subreddit:str):
-        """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well."""
+        """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well.\nPlease don't include the `r/` infront of the subreddit name."""
         api_key = await self.bot.get_shared_api_tokens("ksoftsi")
         if api_key.get("api_key") is None:
             await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
@@ -81,7 +81,7 @@ class Animals(commands.Cog):
                     "remove_nsfw": "True"
                     }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
                     if resp.status != 200:
-                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the subreddit is invalid/nsfw.')
                         return
                     response = await resp.json()
                 embedColor = await ctx.embed_colour()
