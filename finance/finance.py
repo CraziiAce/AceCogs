@@ -53,19 +53,18 @@ class Finance(commands.Cog):
                 }) as resp:
                     if resp.status != 200:
                         await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                        return
                     response = await resp.json()
-                    return
-                if resp.status == 200:
-                    if not response['companyName']:
-                        await ctx.send('Sorry, but I could not find data for that company')
-                    else:
-                        embedColor = await ctx.embed_colour()
-                        embed = discord.Embed(
-                            title = f"Company Data for {response['companyName']}",
-                            color = embedColor,
-                            description = f"{response['description']}\nTraded on the {response['exchange']}.",
-                            url = response['website']
-                        )
-                        if not response['address2']:
-                            embed.add_field(name=f"Company Data for {response['companyName']}", value=f"**CEO:** {response['CEO']}\n**SEC name:** {response['securityName']}\n**Industry:** {response['sector']}\n**Employees:** {response['employees']}\n**Address:** \n{response['companyName']}\n{response['address']}\n{response['city']}, {response['state']} {response['zip']}")
-                        await ctx.send(embed=embed)
+                if not response['companyName']:
+                    await ctx.send('Sorry, but I could not find data for that company')
+                else:
+                    embedColor = await ctx.embed_colour()
+                    embed = discord.Embed(
+                        title = f"Company Data for {response['companyName']}",
+                        color = embedColor,
+                        description = f"{response['description']}\nTraded on the {response['exchange']}.",
+                        url = response['website']
+                    )
+                    if not response['address2']:
+                        embed.add_field(name=f"Company Data for {response['companyName']}", value=f"**CEO:** {response['CEO']}\n**SEC name:** {response['securityName']}\n**Industry:** {response['sector']}\n**Employees:** {response['employees']}\n**Address:** \n{response['companyName']}\n{response['address']}\n{response['city']}, {response['state']} {response['zip']}")
+                    await ctx.send(embed=embed)
