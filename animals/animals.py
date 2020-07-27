@@ -15,6 +15,9 @@ class Animals(commands.Cog):
         async with aiohttp.ClientSession() as session:
             url = "https://dog.ceo/api/breeds/image/random"
             async with session.get(url) as response:
+                if response.status != 200:
+                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                    return
                 response = await response.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
@@ -30,6 +33,9 @@ class Animals(commands.Cog):
         async with aiohttp.ClientSession() as session:
             url = "https://randomfox.ca/floof/"
             async with session.get(url) as response:
+                if response.status != 200:
+                    await ctx.send(f'Sorry, but an unexpected error occured with error code `{response.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                    return
                 response = await response.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
@@ -47,7 +53,11 @@ class Animals(commands.Cog):
             await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
         else: 
             async with aiohttp.ClientSession() as session:
-                async with session.get('https://api.ksoft.si/images/random-aww', headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                async with session.get('https://api.ksoft.si/images/random-aww', headers={
+                    "Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    if resp.status != 200:
+                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                        return
                     response = await resp.json()
                 embedColor = await ctx.embed_colour()
                 embed = discord.Embed(
@@ -69,7 +79,9 @@ class Animals(commands.Cog):
             async with aiohttp.ClientSession() as session:
                 async with session.get(f"https://api.ksoft.si/images/rand-reddit/{subreddit}", params={
                     "remove_nsfw": "True"
-                    }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    }, headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:                    if resp.status != 200:
+                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the stock ticker is invalid.')
+                        return
                     response = await resp.json()
                 embedColor = await ctx.embed_colour()
                 embed = discord.Embed(
