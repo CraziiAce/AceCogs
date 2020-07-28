@@ -50,7 +50,7 @@ class MemberLogs(commands.Cog):
         else:
             await self.config.guild(ctx.guild).leave_message.set(None)
             await ctx.send("Leave message turned off.")
-    @custommessage.command
+    @custommessage.command()
     async def channel(self, ctx, channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
@@ -93,7 +93,7 @@ class MemberLogs(commands.Cog):
         await channel.send(embed=embed)
         if message:
             await message_channel.send(message.format(user=User, username=User.name))
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_member_remove(self, member):
         leave = await self.config.guild(member.guild).do_leave_logs()
         message = await self.config.guild(member.guild).leave_message()
