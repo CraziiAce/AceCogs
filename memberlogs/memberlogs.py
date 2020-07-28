@@ -5,7 +5,7 @@ import discord
 class MemberLogs(commands.Cog):
     """Log when members join/leave a server."""
 
-    def __init(self, bot):
+    def __init__(self, bot):
         self.bot = bot
         self.config = Config.get_conf(
             self, identifier=7777232377772323, force_registration=True
