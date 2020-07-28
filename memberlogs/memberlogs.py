@@ -28,7 +28,7 @@ class MemberLogs(commands.Cog):
         await ctx.send("User logs successfully turned on.")
     @commands.group()
     @commands.admin()
-    @commands.guild_only
+    @commands.guild_only()
     async def custommessage(self, ctx):
         """Send a custom message when someone joins/leaves."""
     @custommessage.command
