@@ -3,7 +3,7 @@ from redbot.core import commands, checks, Config
 import datetime
 import discord
 class MemberLogs(commands.Cog):
-    """Log when members join/leave a server."""\
+    """Log when members join/leave a server."""
 
     def __init(self, bot):
         self.bot = bot
@@ -14,7 +14,7 @@ class MemberLogs(commands.Cog):
         self.config.register_guild(channel=None, do_join_logs=True, do_leave_logs=True, join_message=None, leave_message=None, message_channel=None)
     @commands.group()
     @commands.guild_only()
-    @commands.admin
+    @commands.admin()
     async def memberlog(self, ctx):
         """Log members joining & leaving"""
         pass
@@ -27,7 +27,7 @@ class MemberLogs(commands.Cog):
             await self.config.guild(ctx.guild).channel.set(None)
         await ctx.send("User logs successfully turned on.")
     @commands.group()
-    @commands.admin
+    @commands.admin()
     @commands.guild_only
     async def custommessage(self, ctx):
         """Send a custom message when someone joins/leaves."""
@@ -77,6 +77,6 @@ class MemberLogs(commands.Cog):
         )
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
-    if message:
-        await message_channel.send(message.format(user=User, username=User.name))
+        if message:
+            await message_channel.send(message.format(user=User, username=User.name))
         
