@@ -19,7 +19,7 @@ class MemberLogs(commands.Cog):
         """Log members joining & leaving"""
         pass
     @memberlog.command()
-    async def channel(self, ctx, channel: discord.TextChannel = None):
+    async def channel(self, ctx, log_channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
             await self.config.guild(ctx.guild).channel.set(channel.id)
@@ -33,7 +33,7 @@ class MemberLogs(commands.Cog):
     async def custommessage(self, ctx):
         """Send a custom message when someone joins/leaves."""
     @custommessage.command()
-    async def join(self, ctx, join_message: str = None):
+    async def join(self, ctx, *, join_message: str = None):
         """Set a custom message for users joining the server. If it is left blank, this will be disabled. Use {user} to mention the user that joined the server, and {username} to display the user's username."""
         if join_message:
             await self.config.guild(ctx.guild).join_message.set(join_message)
@@ -42,7 +42,7 @@ class MemberLogs(commands.Cog):
             await self.config.guild(ctx.guild).join_message.set(None)
             await ctx.send("Join message turned off.")
     @custommessage.command()
-    async def leave(self, ctx, leave_message: str = None):
+    async def leave(self, ctx, *, leave_message: str = None):
         """Set a custom message for users joining the server. If it is left blank, this will be disabled. Use {user} to mention the user that joined the server, and {username} to display the user's username."""
         if leave_message:
             await self.config.guild(ctx.guild).leave_message.set(leave_message)
@@ -51,7 +51,7 @@ class MemberLogs(commands.Cog):
             await self.config.guild(ctx.guild).leave_message.set(None)
             await ctx.send("Leave message turned off.")
     @custommessage.command()
-    async def channel(self, ctx, channel: discord.TextChannel = None):
+    async def message_channel(self, ctx, channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
             await self.config.guild(ctx.guild).message_channel.set(channel.id)
