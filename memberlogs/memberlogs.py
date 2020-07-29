@@ -101,7 +101,7 @@ class MemberLogs(commands.Cog):
         leave = await self.config.guild(member.guild).do_leave_logs()
         message = await self.config.guild(member.guild).leave_message()
         channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
-        messagd_channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
+        message_channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
         if not leave:
             print("failing boolean")
             return
