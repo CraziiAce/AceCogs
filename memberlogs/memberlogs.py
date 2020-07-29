@@ -22,7 +22,7 @@ class MemberLogs(commands.Cog):
     async def channel(self, ctx, log_channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if log_channel:
-            await self.config.guild(ctx.guild).channel.set(log_channel.id)
+            await self.config.guild(ctx.guild).channel.set(log_channel)
             await ctx.send("User logs successfully turned on.")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
@@ -54,7 +54,7 @@ class MemberLogs(commands.Cog):
     async def message_channel(self, ctx, channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
-            await self.config.guild(ctx.guild).message_channel.set(channel.id)
+            await self.config.guild(ctx.guild).message_channel.set(channel)
             await ctx.send("ustom messages successfully turned on.")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
