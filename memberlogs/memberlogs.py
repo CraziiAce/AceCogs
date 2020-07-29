@@ -65,7 +65,9 @@ class MemberLogs(commands.Cog):
         message = await self.config.guild(member.guild).join_message()
         channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
         message_channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
-
+        if message:
+            if message_channel:
+                await message_channel.send(message.format(user=member.mention, username=member.name))
         if not join:
             print("failing boolean")
             return
@@ -94,14 +96,15 @@ class MemberLogs(commands.Cog):
         )
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
-        if message:
-            await message_channel.send(message.format(user=User, username=User.name))
     @commands.Cog.listener()
     async def on_member_remove(self, member):
         leave = await self.config.guild(member.guild).do_leave_logs()
         message = await self.config.guild(member.guild).leave_message()
         channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
         message_channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
+        if message:
+            if message_channel:
+                await message_channel.send(message.format(user=member.mention, username=member.name))
         if not leave:
             print("failing boolean")
             return
@@ -123,6 +126,6 @@ class MemberLogs(commands.Cog):
             icon_url=member.avatar_url,
         )
         embed.set_thumbnail(url=member.avatar_url)
-        await message_channel.send(embed=embed)
+        await channel.send(embed=embed)
         if message:
             await message_channel.send(message.format(user=member.mention, username=member.name))
