@@ -53,8 +53,8 @@ class MemberLogs(commands.Cog):
     @custommessage.command()
     async def message_channel(self, ctx, channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
-        if message_channel:
-            await self.config.guild(ctx.guild).message_channel.set(message_channel.id)
+        if channel:
+            await self.config.guild(ctx.guild).message_channel.set(channel.id)
             await ctx.send("ustom messages successfully turned on.")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
