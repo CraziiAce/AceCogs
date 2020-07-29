@@ -103,8 +103,11 @@ class MemberLogs(commands.Cog):
         channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
         message_channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
         if message:
+            print("message exists")
             if message_channel:
                 await message_channel.send(message.format(user=member.mention, username=member.name))
+            else:
+                print("message channel doesn't exist.")
         if not leave:
             print("failing boolean")
             return
