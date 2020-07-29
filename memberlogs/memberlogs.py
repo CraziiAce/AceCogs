@@ -22,7 +22,7 @@ class MemberLogs(commands.Cog):
     async def channel(self, ctx, log_channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if log_channel:
-            await self.config.guild(ctx.guild).channel.set(log_channel)
+            await self.config.guild(ctx.guild).channel.set(log_channel.id)
             await ctx.send("User logs successfully turned on.")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
@@ -54,7 +54,7 @@ class MemberLogs(commands.Cog):
     async def message_channel(self, ctx, channel: discord.TextChannel = None):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
-            await self.config.guild(ctx.guild).message_channel.set(channel)
+            await self.config.guild(ctx.guild).message_channel.set(channel.id)
             await ctx.send("ustom messages successfully turned on.")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
@@ -63,8 +63,9 @@ class MemberLogs(commands.Cog):
     async def on_member_join(self, member):
         join = await self.config.guild(member.guild).do_join_logs()
         message = await self.config.guild(member.guild).join_message()
-        message_channel = await self.config.guild(member.guild).message_channel()
-        channel = await self.config.guild(member.guild).channel()
+        message_channel = await self.bot.get_channel(self.config.guild(member.guild).channel())
+        channel = await self.bot.get_channel(self.config.guild(member.guild).message_channel())
+
         if not join:
             return
         if not channel:
@@ -97,8 +98,8 @@ class MemberLogs(commands.Cog):
     async def on_member_remove(self, member):
         leave = await self.config.guild(member.guild).do_leave_logs()
         message = await self.config.guild(member.guild).leave_message()
-        message_channel = await self.config.guild(member.guild).message_channel()
-        channel = await self.config.guild(member.guild).channel()
+        message_channel = self.bot.get_channel(self.config.guild(member.guild).channel())
+        channel = self.bot.get_channel(self.config.guild(member.guild).message_channel())
         if not leave:
             return
         if not channel:
