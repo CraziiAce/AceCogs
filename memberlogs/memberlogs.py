@@ -67,8 +67,10 @@ class MemberLogs(commands.Cog):
         channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
 
         if not join:
+            print("failing boolean")
             return
         if not channel:
+            print("failing channel")
             return
         time = datetime.datetime.utcnow()
         users_in_guild = len(member.guild.members)
