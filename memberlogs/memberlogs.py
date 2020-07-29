@@ -63,8 +63,8 @@ class MemberLogs(commands.Cog):
     async def on_member_join(self, member):
         join = await self.config.guild(member.guild).do_join_logs()
         message = await self.config.guild(member.guild).join_message()
-        message_channel = await self.bot.get_channel(self.config.guild(member.guild).channel())
-        channel = await self.bot.get_channel(self.config.guild(member.guild).message_channel())
+        message_channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
+        channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
 
         if not join:
             return
@@ -98,8 +98,8 @@ class MemberLogs(commands.Cog):
     async def on_member_remove(self, member):
         leave = await self.config.guild(member.guild).do_leave_logs()
         message = await self.config.guild(member.guild).leave_message()
-        message_channel = await self.bot.get_channel(self.config.guild(member.guild).channel())
-        channel = await self.bot.get_channel(self.config.guild(member.guild).message_channel())
+        message_channel = self.bot.get_channel(await self.config.guild(member.guild).channel())
+        channel = self.bot.get_channel(await self.config.guild(member.guild).message_channel())
         if not leave:
             return
         if not channel:
