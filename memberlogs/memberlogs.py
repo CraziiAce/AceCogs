@@ -125,4 +125,4 @@ class MemberLogs(commands.Cog):
         embed.set_thumbnail(url=member.avatar_url)
         await message_channel.send(embed=embed)
         if message:
-            await message_channel.send(message.format(user=User, username=User.name))
+            await message_channel.send(message.format(user=member.mention, username=member.name))
