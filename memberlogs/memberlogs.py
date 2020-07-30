@@ -27,13 +27,33 @@ class MemberLogs(commands.Cog):
         else:
             await self.config.guild(ctx.guild).channel.set(None)
             await ctx.send("User logs successfully turned off.")
+    @memberlog.command
+    async def join(self, ctx):
+        """Toggle logging guild joins/leaves. Set to True by default."""
+        join = await self.config.guild(ctx.guild).do_join_logs()
+        if join:
+            self.config.guild(ctx.guild).do_join_logs.set(False)
+            await ctx.send("I will no longer send log message when someone joins.")
+        if not join:
+            self.config.guild(ctx.guild).do_join_logs.set(True)
+            await ctx.send("I will now send log message when someone joins.")
+    @memberlog.command
+    async def leave(self, ctx):
+        """Toggle logging guild joins/leaves. Set to True by default."""
+        leave = await self.config.guild(ctx.guild).do_leave_logs()
+        if leave:
+            self.config.guild(ctx.guild).do_leave_logs.set(False)
+            await ctx.send("I will no longer send log message when someone leaves.")
+        if not leave:
+            self.config.guild(ctx.guild).do_leave_logs.set(True)
+            await ctx.send("I will now send log message when someone leaves.")
     @commands.group()
     @commands.admin()
     @commands.guild_only()
     async def custommessage(self, ctx):
         """Send a custom message when someone joins/leaves."""
     @custommessage.command()
-    async def join(self, ctx, *, join_message: str = None):
+    async def togglejoin(self, ctx, *, join_message: str = None):
         """Set a custom message for users joining the server. If it is left blank, this will be disabled. Use {user} to mention the user that joined the server, and {username} to display the user's username."""
         if join_message:
             await self.config.guild(ctx.guild).join_message.set(join_message)
@@ -42,7 +62,7 @@ class MemberLogs(commands.Cog):
             await self.config.guild(ctx.guild).join_message.set(None)
             await ctx.send("Join message turned off.")
     @custommessage.command()
-    async def leave(self, ctx, *, leave_message: str = None):
+    async def toggleleave(self, ctx, *, leave_message: str = None):
         """Set a custom message for users joining the server. If it is left blank, this will be disabled. Use {user} to mention the user that joined the server, and {username} to display the user's username."""
         if leave_message:
             await self.config.guild(ctx.guild).leave_message.set(leave_message)
@@ -55,7 +75,7 @@ class MemberLogs(commands.Cog):
         """Set the channel where member logs will be sent. Use this without a channel to turn off the logs."""
         if channel:
             await self.config.guild(ctx.guild).message_channel.set(channel.id)
-            await ctx.send("ustom messages successfully turned on.")
+            await ctx.send(f"Custom messages successfully turned on, channel set to {channel}")
         else:
             await self.config.guild(ctx.guild).channel.set(None)
             await ctx.send("Custom messages successfully turned off.")
@@ -130,5 +150,3 @@ class MemberLogs(commands.Cog):
         )
         embed.set_thumbnail(url=member.avatar_url)
         await channel.send(embed=embed)
-        if message:
-            await message_channel.send(message.format(user=member.mention, username=member.name))
