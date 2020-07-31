@@ -1,5 +1,6 @@
 from redbot.core import commands, checks, Config
 
+import PIL
 import datetime
 import discord
 class MemberLogs(commands.Cog):
