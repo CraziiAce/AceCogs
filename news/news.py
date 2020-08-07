@@ -30,7 +30,7 @@ class News(commands.Cog):
                     "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
-        if resp['staus'] != 'ok':
+        if resp['status'] != 'ok':
             await ctx.send(f"An unexpected error occured: {resp['code']}. {resp['message']}")
         embeds = []
         await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}\nArticles: {len(resp['articles'])}")
