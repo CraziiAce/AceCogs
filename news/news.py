@@ -51,6 +51,7 @@ class News(commands.Cog):
                 )
             )
             embeds.append(embed)
+            await ctx.send(f"paginated page {len(embeds)}")
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
