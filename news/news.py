@@ -41,7 +41,7 @@ class News(commands.Cog):
 
             embed.set_footer(
                 text=(
-                    f"By {resp['articles'][len(embeds)]['author']} for {resp[len(embeds)]['articles']['source']['name']}"
+                    f"By {resp['articles'][len(embeds)]['author']} for {resp['articles'][len(embeds)]['source']['name']}"
                 )
             )
 
