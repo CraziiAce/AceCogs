@@ -9,6 +9,14 @@ class News(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
+    async def get(url_to_use:str, key:str):
+        """Just a utility function to get stuff from API's with less code."""
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url_to_use, headers={
+                "Authorization":f"Bearer {key}"
+            }) as resp:
+                resp = await resp.json()
+                return resp
     @commands.command()
     async def news(self, ctx, country:str, category:str = None):
         categories = ['business', 'entertainment', 'general', 'health', 'sports', 'science', 'technology']
@@ -18,34 +26,27 @@ class News(commands.Cog):
             await ctx.send("Please set the api key with `[p]set api newsapi key <your key> Go to https://newsapi.org if you need a key.")
             return
         if category:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', headers={
-                    "Authorization":f"Bearer {key.get("key")}"
-                }) as resp:
-                    resp = await resp.json()
+            self.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', key.get('key'))
         else:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.news_base_url}/top-headlines?country={country}', headers={
-                    "Authorization":f"Bearer {key.get("key")}"
-                }) as resp:
-                    resp = await resp.json()
+            self.get(f'{self.news_base_url}/top-headlines?country={country}', key.get('key'))
         embeds = []
-        while len(embeds) < resp["totalResults"]
+        while len(embeds) < resp["totalResults"]:
             embed = discord.Embed()
-            embed.title = _("{word} by {author}").format(
-                word=ud["word"].capitalize(), author=ud["author"]
-            )
-            embed.url = ud["permalink"]
+            embed.title = _(resp[len(embeds)]['title'])
+            embed.url = resp[len(embeds)]["url"]
 
-            description = _("{definition}\n\n**Example:** {example}").format(**ud)
-            if len(description) > 2048:
-                description = "{}...".format(description[:2045])
-            embed.description = description
+            description = _(resp[len(embeds)]['description'])
 
             embed.set_footer(
                 text=_(
-                    "{thumbs_down} Down / {thumbs_up} Up, Powered by Urban Dictionary."
-                ).format(**ud)
+                    f"By {resp[len(embeds)]['author']} for {resp[len(embeds)]['source']['name']}"
+                )
+            )
+
+            embed.set_thumbnail(
+                url=_(
+                    resp[len(embeds)]['urlToImage']
+                )
             )
             embeds.append(embed)
 
