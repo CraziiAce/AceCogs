@@ -9,14 +9,6 @@ class News(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.session = aiohttp.ClientSession()
-    async def get(url_to_use:str, key:str):
-        """Just a utility function to get stuff from API's with less code."""
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url_to_use, headers={
-                "Authorization":f"Bearer {key}"
-            }) as resp:
-                resp = await resp.json()
-                return resp
     @commands.command()
     async def news(self, ctx, country:str, category:str = None):
         categories = ['business', 'entertainment', 'general', 'health', 'sports', 'science', 'technology']
@@ -25,10 +17,18 @@ class News(commands.Cog):
         if not key.get("key"):
             await ctx.send("Please set the api key with `[p]set api newsapi key <your key> Go to https://newsapi.org if you need a key.")
             return
-        if category:
-            self.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', key.get('key'))
+        if category:        
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', headers={
+                    "Authorization":f"Bearer {key.get('get')}"
+                }) as resp:
+                    resp = await resp.json()
         else:
-            self.get(f'{self.news_base_url}/top-headlines?country={country}', key.get('key'))
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', headers={
+                    "Authorization":f"Bearer {key.get('key')}"
+                }) as resp:
+                    resp = await resp.json()
         embeds = []
         while len(embeds) < resp["totalResults"]:
             embed = discord.Embed()
