@@ -1,5 +1,7 @@
 from redbot.core import commands
 
+from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
+
 import discord
 import aiohttp
 
