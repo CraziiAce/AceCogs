@@ -32,7 +32,7 @@ class News(commands.Cog):
                     resp = await resp.json()
         embeds = []
         # await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}")
-        while len(embeds) < resp["totalResults"] - 1:
+        while len(embeds) < resp["totalResults"] - 2:
             embed = discord.Embed()
             embed.title = (resp['articles'][len(embeds)]['title'])
             embed.url = resp['articles'][len(embeds)]["url"]
@@ -51,7 +51,6 @@ class News(commands.Cog):
                 )
             )
             embeds.append(embed)
-            await ctx.send(f"page {len(embeds)} succesfully added to list.")
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
