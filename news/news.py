@@ -47,7 +47,7 @@ class News(commands.Cog):
 
             embed.set_thumbnail(
                 url=(
-                    resp[len(embeds)]['articles']['urlToImage']
+                    resp['articles'][len(embeds)]['urlToImage']
                 )
             )
             embeds.append(embed)
