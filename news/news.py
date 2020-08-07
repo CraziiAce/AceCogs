@@ -32,7 +32,7 @@ class News(commands.Cog):
                     resp = await resp.json()
         embeds = []
         await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}\nArticles: {len(resp['articles'])}")
-        while len(embeds) < resp["totalResults"] - 2:
+        while len(embeds) < resp["totalResults"]:
             embed = discord.Embed()
             embed.title = (resp['articles'][len(embeds)]['title'])
             embed.url = resp['articles'][len(embeds)]["url"]
@@ -51,7 +51,6 @@ class News(commands.Cog):
                 )
             )
             embeds.append(embed)
-            await ctx.send(f"paginated page {len(embeds)}")
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
