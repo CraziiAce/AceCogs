@@ -13,7 +13,6 @@ class News(commands.Cog):
         self.session = aiohttp.ClientSession()
     @commands.command()
     async def news(self, ctx, country:str, category:str = None):
-        categories = ['business', 'entertainment', 'general', 'health', 'sports', 'science', 'technology']
         """Get the current news. Country must be two letters, e.g \'us\' or \'fr\'"""
         key = await self.bot.get_shared_api_tokens("newsapi")
         if not key.get("key"):
@@ -32,12 +31,12 @@ class News(commands.Cog):
                 }) as resp:
                     resp = await resp.json()
         embeds = []
-        while len(embeds) < resp["totalResults"]:
+        while len(embeds) < resp["totalResults"] - 1:
             embed = discord.Embed()
             embed.title = _(resp[len(embeds)]['title'])
             embed.url = resp[len(embeds)]["url"]
 
-            description = _(resp[len(embeds)]['description'])
+            embed.description = _(resp[len(embeds)]['description'])
 
             embed.set_footer(
                 text=_(
