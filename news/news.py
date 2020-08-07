@@ -21,7 +21,7 @@ class News(commands.Cog):
         if category:        
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}&pagesize=100', headers={
-                    "Authorization":f"Bearer {key.get('get')}"
+                    "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
         else:
@@ -30,7 +30,8 @@ class News(commands.Cog):
                     "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
-        await ctx.send(resp)
+        if resp['staus'] != 'ok'
+            await ctx.send(f"An unexpected error occured: {resp['code']}. {resp['message']}")
         embeds = []
         await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}\nArticles: {len(resp['articles'])}")
         while len(embeds) < resp["totalResults"]:
