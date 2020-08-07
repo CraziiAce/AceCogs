@@ -31,6 +31,8 @@ class News(commands.Cog):
                 }) as resp:
                     resp = await resp.json()
         embeds = []
+        if len(embeds) < resp["totalResults"] - 1:
+            await ctx.send('while loop run')
         while len(embeds) < resp["totalResults"] - 1:
             embed = discord.Embed()
             embed.title = (resp[len(embeds)]['title'])
