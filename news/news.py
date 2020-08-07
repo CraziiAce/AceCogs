@@ -30,6 +30,7 @@ class News(commands.Cog):
                     "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
+        await ctx.send(resp)
         embeds = []
         await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}\nArticles: {len(resp['articles'])}")
         while len(embeds) < resp["totalResults"]:
