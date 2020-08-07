@@ -50,7 +50,7 @@ class News(commands.Cog):
             )
             embeds.append(embed)
 
-        if embeds is not None and len(embeds) = resp["totalResults"]:
+        if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
                 pages=embeds,
