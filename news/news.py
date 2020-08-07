@@ -26,12 +26,12 @@ class News(commands.Cog):
                     resp = await resp.json()
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', headers={
+                async with session.get(f'{self.news_base_url}/top-headlines?country={country}', headers={
                     "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
         embeds = []
-        await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}")
+        # await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}")
         while len(embeds) < resp["totalResults"] - 1:
             embed = discord.Embed()
             embed.title = (resp[len(embeds)]['title'])
