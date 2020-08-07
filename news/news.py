@@ -34,20 +34,20 @@ class News(commands.Cog):
         # await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}")
         while len(embeds) < resp["totalResults"] - 1:
             embed = discord.Embed()
-            embed.title = (resp[len(embeds)]['title'])
-            embed.url = resp[len(embeds)]["url"]
+            embed.title = (resp['articles'][len(embeds)]['title'])
+            embed.url = resp['articles'][len(embeds)]["url"]
 
-            embed.description = (resp[len(embeds)]['description'])
+            embed.description = (resp['articles'][len(embeds)]['description'])
 
             embed.set_footer(
                 text=(
-                    f"By {resp[len(embeds)]['author']} for {resp[len(embeds)]['source']['name']}"
+                    f"By {resp['articles'][len(embeds)]['author']} for {resp[len(embeds)]['source']['name']}"
                 )
             )
 
             embed.set_thumbnail(
                 url=(
-                    resp[len(embeds)]['urlToImage']
+                    resp[len(embeds)]['articles']['urlToImage']
                 )
             )
             embeds.append(embed)
