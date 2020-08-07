@@ -33,24 +33,24 @@ class News(commands.Cog):
         embeds = []
         while len(embeds) < resp["totalResults"] - 1:
             embed = discord.Embed()
-            embed.title = _(resp[len(embeds)]['title'])
+            embed.title = (resp[len(embeds)]['title'])
             embed.url = resp[len(embeds)]["url"]
 
-            embed.description = _(resp[len(embeds)]['description'])
+            embed.description = (resp[len(embeds)]['description'])
 
             embed.set_footer(
-                text=_(
+                text=(
                     f"By {resp[len(embeds)]['author']} for {resp[len(embeds)]['source']['name']}"
                 )
             )
 
             embed.set_thumbnail(
-                url=_(
+                url=(
                     resp[len(embeds)]['urlToImage']
                 )
             )
             embeds.append(embed)
-
+            await ctx.send(f"page {len(embeds)} succesfully added to list.")
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
