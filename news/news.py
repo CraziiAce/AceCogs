@@ -20,13 +20,13 @@ class News(commands.Cog):
             return
         if category:        
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}', headers={
+                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}&pagesize=100', headers={
                     "Authorization":f"Bearer {key.get('get')}"
                 }) as resp:
                     resp = await resp.json()
         else:
             async with aiohttp.ClientSession() as session:
-                async with session.get(f'{self.news_base_url}/top-headlines?country={country}', headers={
+                async with session.get(f'{self.news_base_url}/top-headlines?country={country}&pagesize=100', headers={
                     "Authorization":f"Bearer {key.get('key')}"
                 }) as resp:
                     resp = await resp.json()
