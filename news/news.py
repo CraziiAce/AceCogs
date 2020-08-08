@@ -67,6 +67,8 @@ class News(commands.Cog):
                     )
                 )
                 embeds.append(embed)
+            except KeyError:
+                await ctx.send("An unexpected error occured.")
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
