@@ -18,6 +18,15 @@ class News(commands.Cog):
         if not key.get("key"):
             await ctx.send("Please set the api key with `[p]set api newsapi key <your key> Go to https://newsapi.org if you need a key.")
             return
+        us_state_abbrev = {
+            'Poland': 'pl',
+            'US': 'us',
+            'Britain': 'gb',
+            'br': 'gb',
+            'England': 'gb',
+            'Wales': 'gb',
+            'Scotland': 'gb',
+        }
         if category:        
             async with aiohttp.ClientSession() as session:
                 async with session.get(f'{self.news_base_url}/top-headlines?country={country}&category={category}&pagesize=100', headers={
@@ -32,27 +41,32 @@ class News(commands.Cog):
                     resp = await resp.json()
         if resp['status'] != 'ok':
             await ctx.send(f"An unexpected error occured: {resp['code']}. {resp['message']}")
+            return
+        if resp['totalResults'] == 0:
+            await ctx.send("That doesn\'t look like a valid category!")
+            return
         embeds = []
         await ctx.send(f"Num of embeds: {len(embeds)}\nResults: {resp['totalResults']}\nArticles: {len(resp['articles'])}")
         while len(embeds) < resp["totalResults"]:
-            embed = discord.Embed()
-            embed.title = (resp['articles'][len(embeds)]['title'])
-            embed.url = resp['articles'][len(embeds)]["url"]
+            try:
+                embed = discord.Embed()
+                embed.title = (resp['articles'][len(embeds)]['title'])
+                embed.url = resp['articles'][len(embeds)]["url"]
 
-            embed.description = (resp['articles'][len(embeds)]['description'])
+                embed.description = (resp['articles'][len(embeds)]['description'])
 
-            embed.set_footer(
-                text=(
-                    f"By {resp['articles'][len(embeds)]['author']} for {resp['articles'][len(embeds)]['source']['name']}"
+                embed.set_footer(
+                    text=(
+                        f"By {resp['articles'][len(embeds)]['author']} for {resp['articles'][len(embeds)]['source']['name']}"
+                    )
                 )
-            )
 
-            embed.set_thumbnail(
-                url=(
-                    resp['articles'][len(embeds)]['urlToImage']
+                embed.set_thumbnail(
+                    url=(
+                        resp['articles'][len(embeds)]['urlToImage']
+                    )
                 )
-            )
-            embeds.append(embed)
+                embeds.append(embed)
         if len(embeds) == resp["totalResults"]:
             await menu(
                 ctx,
