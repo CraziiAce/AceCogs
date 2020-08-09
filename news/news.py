@@ -46,8 +46,8 @@ class News(commands.Cog):
             await ctx.send("It looks like that country/category is invalid.")
             return
         embeds = []
-        while len(embeds) < resp["totalResults"]:
-            try:
+        try:
+            while len(embeds) < resp["totalResults"]:
                 embed = discord.Embed()
                 embed.title = (resp['articles'][len(embeds)]['title'])
                 embed.url = resp['articles'][len(embeds)]["url"]
@@ -66,14 +66,14 @@ class News(commands.Cog):
                     )
                 )
                 embeds.append(embed)
-            except discord.errors.HTTPException:
-                await ctx.send("An unexpected error occurred. This usually means that the API returned an invalid image url")
-        if len(embeds) == resp["totalResults"]:
-            await menu(
-                ctx,
-                pages=embeds,
-                controls=DEFAULT_CONTROLS,
-                message=None,
-                page=0,
-                timeout=30,
-            )
+            if len(embeds) == resp["totalResults"]:
+                await menu(
+                    ctx,
+                    pages=embeds,
+                    controls=DEFAULT_CONTROLS,
+                    message=None,
+                    page=0,
+                    timeout=30,
+                )
+        except discord.errors.HTTPException:
+            await ctx.send("An unexpected error occurred. This usually means that the API returned an invalid image url")
