@@ -34,12 +34,13 @@ class Finance(commands.Cog):
                     title = f"Stock Data for {response['quote']['companyName']}",
                     color = embedColor,
                 )
-                if percentage_gain:
-                    embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Gain: <:up_arrow:736390019136356442> %{percentage_change_final}")
-                if not percentage_gain:
-                    embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
-                embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by IEX Cloud")
-            await ctx.send(embed=embed)
+                # if percentage_gain:
+                    # embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Gain: <:up_arrow:736390019136356442> %{percentage_change_final}")
+                # if not percentage_gain:
+                    # embed.add_field(name='Prices', value=f"Open: ${response['quote']['open']}\nHigh: ${response['quote']['high']}\nLow: ${response['quote']['low']}\nCurrent: ${response['quote']['latestPrice']}\nPercentage Loss: <:down_arrow:736390163839844422> %{percentage_change_final}")
+                # embed.set_footer(text=f"Requested by {ctx.author.name} | Powered by IEX Cloud")
+            # await ctx.send(embed=embed)
+            await ctx.send(response)
     @commands.command(aliases=['companyprofile', 'cprofile', 'companyinfo'])
     async def company(self, ctx, stock_ticker:str):
         """Get information about a publicly traded company."""
