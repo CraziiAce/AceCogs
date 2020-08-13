@@ -1,5 +1,6 @@
 {
-    "author":"CraziiAce#3062",
+    "author":["CraziiAce#3062"],
     "description":"Get info for stocks and stiff",
-    "install_msg":"Thanks for adding my cog! Feel free to DM me if you have any problems or need support."
+    "install_msg":"Thanks for adding my cog! Feel free to DM me if you have any problems or need support.",
+    "short":"Get info for stocks and companies"
     }

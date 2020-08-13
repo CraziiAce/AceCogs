@@ -1,5 +1,6 @@
 {
-    "author":"CraziiAce#3062",
-    "description":"Retreive weather for an area using the openweather API",
-    "install_msg":"Thanks for adding my cog! Feel free to DM me if you have any questions or need support."
+    "author":["CraziiAce#3062"],
+    "description":"Get music info",
+    "install_msg":"Thanks for adding my cog! Feel free to DM me if you have any questions or need support.",
+    "short":"Get music info"
     }
