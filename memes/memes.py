@@ -17,23 +17,19 @@ class Memes(commands.Cog):
     @commands.command(aliases=['meme', 'dankmeme'])
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
-        api_key = await self.bot.get_shared_api_tokens("ksoftsi")
-        if api_key.get("api_key") is None:
-            await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
-        else: 
-            async with aiohttp.ClientSession() as session:
-                async with session.get('https://api.ksoft.si/images/random-meme', headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
-                    response = await resp.json()
-                embedColor = await ctx.embed_colour()
-                embed = discord.Embed(
-                    title = response['title'],
-                    url = response['source'],
-                    color = embedColor,
-                    description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']})"
-                )
-                embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
-                embed.set_image(url=response['image_url'])
-                await ctx.send(embed=embed)
+        async with aiohttp.ClientSession() as session:
+            async with session.get('https://api.martinethebot.com/images/meme') as resp:
+                response = await resp.json()
+            embedColor = await ctx.embed_colour()
+            embed = discord.Embed(
+                title = response['data']['title'],
+                url = response['data']['post_url'],
+                color = embedColor,
+                description = f"{response['data']['author']['name']} | Can't see the image? [Click Here.]({response['data']['image_url']})"
+            )
+            embed.set_footer(text=f"{response['data']['upvotes']} 👍 | {response['data']['comments']} 💬")
+            embed.set_image(url=response['data']['image_url'])
+            await ctx.send(embed=embed)
 
     @commands.command()
     async def supreme(self, ctx, *, text:str):
