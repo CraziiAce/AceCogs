@@ -244,7 +244,7 @@ class ReactionTickets(commands.Cog):
             return False
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        guild = await self.bot.get_guild(payload.guild_id)
+        guild = self.bot.get_guild(payload.guild_id)
         author = payload.member
         try:
             settings = await self.config.guild(guild).all()
