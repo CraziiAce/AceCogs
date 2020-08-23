@@ -244,47 +244,43 @@ class ReactionTickets(commands.Cog):
             return False
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        guild = await self.bot.get_guild(payload.guild.id)
+        guild = await self.bot.get_guild(payload.guild_id)
         author = payload.member
         try:
             settings = await self.config.guild(guild).all()
-            for channel in guild.channels:
-                if channel.name == name.lower():
-                    found = True
-            if not found:
                 if settings["modlog"]:
-                    await modlog.create_case(
-                        self.bot,
-                        guild,
-                        datetime.now,
-                        action_type="ticket_created",
-                        user=author,
-                        moderator=author,
-                        reason="User reacted to a ticket message.",
-                    )
-                overwrite = {
-                    guild.default_role: discord.PermissionOverwrite(read_messages=False),
-                    author: discord.PermissionOverwrite(
-                        read_messages=True,
-                        send_messages=True,
-                        embed_links=True,
-                        attach_files=True,
-                    ),
-                    guild.get_role(settings["role"]): discord.PermissionOverwrite(
-                        read_messages=True,
-                        send_messages=True,
-                        embed_links=True,
-                        attach_files=True,
-                        manage_messages=True,
-                    ),
-                }
-                ticketchannel = await guild.create_text_channel(
-                    f"Ticket - {author.name}#{author.discriminator}",
-                    overwrites=overwrite,
-                    category=guild.get_channel(settings["open_category"]),
+                await modlog.create_case(
+                    self.bot,
+                    guild,
+                    datetime.now,
+                    action_type="ticket_created",
+                    user=author,
+                    moderator=author,
+                    reason="User reacted to a ticket message.",
                 )
-                await ticketchannel.send(settings["message"])
-                async with self.config.guild(guild).active() as active:
-                    active.append((ticketchannel.id, message.id))
+            overwrite = {
+                guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                author: discord.PermissionOverwrite(
+                    read_messages=True,
+                    send_messages=True,
+                    embed_links=True,
+                    attach_files=True,
+                ),
+                guild.get_role(settings["role"]): discord.PermissionOverwrite(
+                    read_messages=True,
+                    send_messages=True,
+                    embed_links=True,
+                    attach_files=True,
+                    manage_messages=True,
+                ),
+            }
+            ticketchannel = await guild.create_text_channel(
+                f"Ticket - {author.name}#{author.discriminator}",
+                overwrites=overwrite,
+                category=guild.get_channel(settings["open_category"]),
+            )
+            await ticketchannel.send(settings["message"])
+            async with self.config.guild(guild).active() as active:
+                active.append((ticketchannel.id, message.id))
         except KeyError:
             print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
