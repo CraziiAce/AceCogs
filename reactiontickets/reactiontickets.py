@@ -5,7 +5,7 @@ from redbot.core import commands, checks, Config, modlog
 
 
 class ReactionTickets(commands.Cog):
-    """Dav's ticketer cog, but with reactions instead of creating tickets. Full credit to him for most of this cog."""
+    """Dav's ticketer cog, but with reactions so i can test it and then make a pr."""
     async def red_delete_data_for_user(self,*,requester,user_id):
         # This cog stores no EUD
         return
@@ -206,12 +206,16 @@ class ReactionTickets(commands.Cog):
             else:
                 await ctx.send("This is not a ticket channel.")
     @reactticket.command()
-    @checks.mod
+    @checks.mod()
     async def start(self, ctx):
         """Start the reaction ticket system"""
         channel = await self.bot.get_channel(await self.config.guild(ctx.guild).channel())
-        embed = discord.Embed
-
+        embed = discord.Embed(
+            title="Support tickets",
+            description="testing something"
+        )
+        msg = await channel.send(embed=embed)
+        await self.config.guild(ctx.guild).react_message.set(msg.id)
     async def _check_settings(self, ctx: commands.Context) -> bool:
         settings = await self.config.guild(ctx.guild).all()
         count = 0
@@ -281,4 +285,3 @@ class ReactionTickets(commands.Cog):
                     active.append((ticketchannel.id, message.id))
         except KeyError:
             print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
-
