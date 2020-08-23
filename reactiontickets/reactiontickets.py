@@ -28,6 +28,7 @@ class ReactionTickets(commands.Cog):
             "react_message": None,
         }
         self.config.register_guild(**default_guild)
+        self.bot = bot
 
     @staticmethod
     async def register_casetypes():
@@ -63,7 +64,7 @@ class ReactionTickets(commands.Cog):
     async def category(self, ctx):
         """Set the categories for open and closed tickets."""
 
-    @reactticket.group()
+    @category.group()
     async def open(self, ctx, category: discord.CategoryChannel):
         """Set the category for open tickets."""
         await self.config.guild(ctx.guild).open_category.set(category.id)
@@ -71,7 +72,7 @@ class ReactionTickets(commands.Cog):
 
     @category.group()
     async def closed(self, ctx, category: discord.CategoryChannel):
-        """Set the category for open tickets."""
+        """Set the category for closed tickets."""
         await self.config.guild(ctx.guild).closed_category.set(category.id)
         await ctx.send(f"Category for closed tickets has been set to {category.mention}")
 
