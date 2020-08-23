@@ -212,7 +212,7 @@ class ReactionTickets(commands.Cog):
     @checks.mod()
     async def start(self, ctx):
         """Start the reaction ticket system"""
-        channel = await self.bot.get_channel(await self.config.guild(ctx.guild).channel())
+        channel = self.bot.get_channel(await self.config.guild(ctx.guild).channel())
         embed = discord.Embed(
             title="Support tickets",
             description="testing something"
