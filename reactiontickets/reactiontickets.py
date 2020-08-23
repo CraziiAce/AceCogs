@@ -243,7 +243,7 @@ class ReactionTickets(commands.Cog):
         else:
             return False
     @commands.Cog.listener()
-    async def on_raw_reaction_add(payload):
+    async def on_raw_reaction_add(self, payload):
         guild = await self.bot.get_guild(payload.guild.id)
         author = payload.member
         try:
