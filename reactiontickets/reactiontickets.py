@@ -1,7 +1,9 @@
-import discord
+from redbot.core import commands, checks, Config, modlog
+
 from typing import Optional
 from datetime import datetime
-from redbot.core import commands, checks, Config, modlog
+import discord
+
 
 
 class ReactionTickets(commands.Cog):
@@ -10,7 +12,7 @@ class ReactionTickets(commands.Cog):
         # This cog stores no EUD
         return
 
-    def __init__(self):
+    def __init__(self, bot):
         self.config = Config.get_conf(self, 200730042020, force_registration=True)
         default_guild = {
             "channel": None,
