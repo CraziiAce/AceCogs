@@ -252,7 +252,7 @@ class ReactionTickets(commands.Cog):
                 await modlog.create_case(
                     self.bot,
                     guild,
-                    datetime.now,
+                    datetime.now(),
                     action_type="ticket_created",
                     user=author,
                     moderator=author,
