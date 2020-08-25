@@ -1,5 +1,5 @@
 {
-    "author":"CraziiAce#3062",
+    "author":["CraziiAce#0001"],
     "description":"Retreive global news using the newsapi.org api. This is my first cog with pagination, so it might be rly messed up",
     "install_msg":"Thanks for adding my cog! Feel free to DM me if you have any questions or need support."
     }
