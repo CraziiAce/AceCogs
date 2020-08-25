@@ -130,7 +130,7 @@ class ReactionTickets(commands.Cog):
         success = False
         print("ctx.channel.id")
         print(active)
-        print(await self.config.guild(ctx.guild).active():)
+        print(await self.config.guild(ctx.guild).active()
         if ctx.channel.id in active:
             new_embed = (
                 await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
