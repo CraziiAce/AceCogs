@@ -281,7 +281,6 @@ class ReactionTickets(commands.Cog):
                     category=guild.get_channel(settings["open_category"]),
                 )
                 await ticketchannel.send(settings["message"])
-                async with self.config.guild(guild).active() as active:
-                    active.append(ticketchannel.id)
-            except KeyError:
-                print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
+                settings["active"].append(ticketchannel.id)
+        except KeyError:
+            print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
