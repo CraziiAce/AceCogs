@@ -128,44 +128,43 @@ class ReactionTickets(commands.Cog):
         settings = await self.config.guild(ctx.guild).all()
         active = settings["active"]
         success = False
-        for ticket in active:
-            if ctx.channel.id in ticket:
-                new_embed = (
-                    await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
-                ).embeds[0]
-                new_embed.add_field(
-                    name=datetime.utcnow().strftime("%H:%m UTC"),
-                    value=f"Ticket closed by {ctx.author.name}#{ctx.author.discriminator}",
-                )
-                new_embed.timestamp = datetime.utcnow()
-                await (
-                    await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
-                ).edit(
-                    embed=new_embed, delete_after=10,
-                )
-                await ctx.send(embed=new_embed)
-                await ctx.send(
-                    "This ticket can no longer be edited using ticketer.", delete_after=30
-                )
-                await ctx.channel.edit(
-                    category=ctx.guild.get_channel(settings["closed_category"]),
-                    name=f"{ctx.channel.name}-c-{datetime.utcnow().strftime('%B-%d-%Y-%H-%m')}",
-                    overwrites={
-                        ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False),
-                        ctx.guild.get_role(settings["role"]): discord.PermissionOverwrite(
-                            read_messages=True,
-                            send_messages=True,
-                            embed_links=True,
-                            attach_files=True,
-                            manage_messages=True,
-                        ),
-                    },
-                )
-                await ctx.send("Ticket closed.")
-                active.remove(ticket)
-                async with self.config.guild(ctx.guild).closed() as closed:
-                    closed.append(ticket[0])
-                success = True
+        if ctx.channel.id in active
+            new_embed = (
+                await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
+            ).embeds[0]
+            new_embed.add_field(
+                name=datetime.utcnow().strftime("%H:%m UTC"),
+                value=f"Ticket closed by {ctx.author.name}#{ctx.author.discriminator}",
+            )
+            new_embed.timestamp = datetime.utcnow()
+            await (
+                await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
+            ).edit(
+                embed=new_embed, delete_after=10,
+            )
+            await ctx.send(embed=new_embed)
+            await ctx.send(
+                "This ticket can no longer be edited using ticketer.", delete_after=30
+            )
+            await ctx.channel.edit(
+                category=ctx.guild.get_channel(settings["closed_category"]),
+                name=f"{ctx.channel.name}-c-{datetime.utcnow().strftime('%B-%d-%Y-%H-%m')}",
+                overwrites={
+                    ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False),
+                    ctx.guild.get_role(settings["role"]): discord.PermissionOverwrite(
+                        read_messages=True,
+                        send_messages=True,
+                        embed_links=True,
+                        attach_files=True,
+                        manage_messages=True,
+                    ),
+                },
+            )
+            await ctx.send("Ticket closed.")
+            active.remove(ticket)
+            async with self.config.guild(ctx.guild).closed() as closed:
+                closed.append(ticket[0])
+            success = True
         if not success:
             await ctx.send("This is not a ticket channel.")
         await self.config.guild(ctx.guild).active.set(active)
