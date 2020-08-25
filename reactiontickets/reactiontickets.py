@@ -248,7 +248,7 @@ class ReactionTickets(commands.Cog):
         author = payload.member
         try:
             settings = await self.config.guild(guild).all()
-            if settings["react_message"] = payload.message_id:
+            if settings["react_message"] == payload.message_id:
                 if settings["modlog"]:
                     await modlog.create_case(
                         self.bot,
