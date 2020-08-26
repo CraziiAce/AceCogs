@@ -284,7 +284,7 @@ class ReactionTickets(commands.Cog):
                 )
                 await message.remove_reaction(payload.emoji, author)
                 await ticketchannel.send(settings["message"])
-                await self.config.guild(guild).active().append(ticketchannel.id)
+                await settings["active"].append(ticketchannel.id)
                 print(await self.config.guild(guild).active())
         except KeyError:
             print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
