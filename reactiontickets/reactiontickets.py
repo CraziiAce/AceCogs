@@ -250,7 +250,7 @@ class ReactionTickets(commands.Cog):
         author = payload.member
         settings = await self.config.guild(guild).all()
         channel = self.bot.get_channel(settings["channel"])
-        message = channel.fetch_message(settings["react_message"])
+        message = await channel.fetch_message(settings["react_message"])
         try:
             if settings["react_message"] == payload.message_id:
                 if settings["modlog"]:
