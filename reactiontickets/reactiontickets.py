@@ -126,7 +126,7 @@ class ReactionTickets(commands.Cog):
     async def close(self, ctx):
         """Close a ticket."""
         settings = await self.config.guild(ctx.guild).all()
-        active = settings["active"]
+        active = await self.config.guild(ctx.guild).active()
         success = False
         print("ctx.channel.id")
         print(active)
