@@ -126,12 +126,11 @@ class ReactionTickets(commands.Cog):
     async def close(self, ctx):
         """Close a ticket."""
         settings = await self.config.guild(ctx.guild).all()
-        active = await self.config.guild(ctx.guild).active()
+        await self.config.guild(ctx.guild).active()
         success = False
         print("ctx.channel.id")
-        print(active)
         print(await self.config.guild(ctx.guild).active())
-        if ctx.channel.id in active:
+        if ctx.channel.id in await self.config.guild(ctx.guild).active():
             new_embed = (
                 await ctx.guild.get_channel(settings["channel"]).fetch_message(ticket[1])
             ).embeds[0]
@@ -164,13 +163,12 @@ class ReactionTickets(commands.Cog):
                 },
             )
             await ctx.send("Ticket closed.")
-            active.remove(ticket)
+            await self.config.guild(ctx.guild).active().remove(ctx.channel.id)
             async with self.config.guild(ctx.guild).closed() as closed:
                 closed.append(ticket[0])
             success = True
         if not success:
             await ctx.send("This is not a ticket channel.")
-        await self.config.guild(ctx.guild).active.set(active)
 
     @reactticket.command()
     @checks.mod()
