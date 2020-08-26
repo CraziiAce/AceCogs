@@ -248,8 +248,10 @@ class ReactionTickets(commands.Cog):
     async def on_raw_reaction_add(self, payload):
         guild = self.bot.get_guild(payload.guild_id)
         author = payload.member
+        settings = await self.config.guild(guild).all()
+        channel = self.bot.get_channel(settings["channel"])
+        message = channel.fetch_message(settings["react_message"])
         try:
-            settings = await self.config.guild(guild).all()
             if settings["react_message"] == payload.message_id:
                 if settings["modlog"]:
                     await modlog.create_case(
@@ -282,7 +284,9 @@ class ReactionTickets(commands.Cog):
                     overwrites=overwrite,
                     category=guild.get_channel(settings["open_category"]),
                 )
+                await message.remove_reaction(payload.emoji, author)
                 await ticketchannel.send(settings["message"])
                 settings["active"].append(ticketchannel.id)
+                print(settings["active"])
         except KeyError:
             print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
