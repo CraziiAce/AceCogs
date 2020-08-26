@@ -128,7 +128,7 @@ class ReactionTickets(commands.Cog):
         settings = await self.config.guild(ctx.guild).all()
         await self.config.guild(ctx.guild).active()
         success = False
-        print("ctx.channel.id")
+        print(ctx.channel.id)
         print(await self.config.guild(ctx.guild).active())
         if ctx.channel.id in await self.config.guild(ctx.guild).active():
             new_embed = (
@@ -284,7 +284,7 @@ class ReactionTickets(commands.Cog):
                 )
                 await message.remove_reaction(payload.emoji, author)
                 await ticketchannel.send(settings["message"])
-                settings["active"].append(ticketchannel.id)
-                print(settings["active"])
+                await self.config.guild(guild).active().append(ticketchannel.id)
+                print(await self.config.guild(guild).active())
         except KeyError:
             print(f'A user reacted to a reactionticket in a guild with ID {guild.id}, but it isn\'t set up!')
