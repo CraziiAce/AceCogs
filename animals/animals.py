@@ -97,7 +97,7 @@ class Animals(commands.Cog):
     @commands.command()
     @commands.is_nsfw()
     async def nsfwreddit(self, ctx, subreddit):
-                """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well.\nPlease don't include the `r/` infront of the subreddit name."""
+        """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well.\nPlease don't include the `r/` infront of the subreddit name."""
         api_key = await self.bot.get_shared_api_tokens("ksoftsi")
         if api_key.get("api_key") is None:
             await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
