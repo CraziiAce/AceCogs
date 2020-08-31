@@ -94,3 +94,28 @@ class Animals(commands.Cog):
                 embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
                 embed.set_image(url=response['image_url'])
                 await ctx.send(embed=embed)
+    @commands.command()
+    @commands.is_nsfw()
+    async def nsfwreddit(self, ctx, subreddit):
+                """Get random images from a subreddit. I know this technically doesn't belong in this cog, but oh well.\nPlease don't include the `r/` infront of the subreddit name."""
+        api_key = await self.bot.get_shared_api_tokens("ksoftsi")
+        if api_key.get("api_key") is None:
+            await ctx.send('The API key is not set. Set it with `set api ksoftsi api_key <your_api_key_here>`')
+        else: 
+            async with aiohttp.ClientSession() as session:
+                async with session.get(f"https://api.ksoft.si/images/rand-reddit/{subreddit}",
+                headers={"Authorization": f"Bearer {api_key.get('api_key')}"}) as resp:
+                    if resp.status != 200:
+                        await ctx.send(f'Sorry, but an unexpected error occured with error code `{resp.status}`. This could mean the API is rejecting our request, or the subreddit is invalid/nsfw.')
+                        return
+                    response = await resp.json()
+                embedColor = await ctx.embed_colour()
+                embed = discord.Embed(
+                    title = response['title'],
+                    url = response['source'],
+                    color = embedColor,
+                    description = f"{response['author']} | Can't see the image? [Click Here.]({response['image_url']}) | from {response['subreddit']}"
+                )
+                embed.set_footer(text=f"{response['upvotes']} 👍 | {response['comments']} 💬")
+                embed.set_image(url=response['image_url'])
+                await ctx.send(embed=embed)
