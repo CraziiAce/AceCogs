@@ -18,7 +18,7 @@ class Memes(commands.Cog):
     async def memes(self, ctx):
         """Get the dankest memes Reddit has to offer. Soon, you'll be able to specify by subreddit and number of memes"""
         async with aiohttp.ClientSession() as session:
-            async with session.get('https://api.martinethebot.com/images/meme') as resp:
+            async with session.get('https://api.martinethebot.com/v1/images/meme') as resp:
                 response = await resp.json()
             embedColor = await ctx.embed_colour()
             embed = discord.Embed(
