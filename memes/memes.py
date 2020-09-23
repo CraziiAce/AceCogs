@@ -21,16 +21,15 @@ class Memes(commands.Cog):
             async with session.get('https://api.martinethebot.com/v1/images/meme') as resp:
                 response = await resp.json()
             embedColor = await ctx.embed_colour()
-            # embed = discord.Embed(
-                # title = response['data']['title'],
-                # url = response['data']['post_url'],
-                # color = embedColor,
-                # description = f"{response['data']['author']['name']} | Can't see the image? [Click Here.]({response['data']['image_url']})"
-            # )
-            await ctx.send(f"```json\n{response}\n```")
-            # embed.set_footer(text=f"{response['data']['upvotes']} 👍 | {response['data']['comments']} 💬")
-            # embed.set_image(url=response['data']['image_url'])
-            # await ctx.send(embed=embed)
+            embed = discord.Embed(
+                title = response['data']['title'],
+                url = response['data']['post_url'],
+                color = embedColor,
+                description = f"{response['data']['author']['name']} | Can't see the image? [Click Here.]({response['data']['image_url']})"
+            )
+            embed.set_footer(text=f"{response['data']['upvotes']} 👍 | {response['data']['comments']} 💬")
+            embed.set_image(url=response['data']['image_url'])
+            await ctx.send(embed=embed)
 
     @commands.command()
     async def supreme(self, ctx, *, text:str):
