@@ -30,7 +30,7 @@ class Skyblock(commands.Cog):
         key = await self.bot.get_shared_api_tokens("hypixel")
         online = "is not online"
         if key.get("key") is None:
-            await ctx.send('You haven't set the Hypixel api key yet! You can do this by doing `/api` in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.'')
+            await ctx.send('You haven\'t set the Hypixel api key yet! You can do this by doing `/api` in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.'')
         else:
             uuid = get_uuid(username)
             if uuid['code'] != 'player.found':
