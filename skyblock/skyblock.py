@@ -30,11 +30,11 @@ class Skyblock(commands.Cog):
         key = await self.bot.get_shared_api_tokens("hypixel")
         online = "is not online"
         if key.get("key") is None:
-            await ctx.send('You haven\'t set the Hypixel api key yet! You can do this by doing `/api` in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.')
+            await ctx.send('You haven\'t set the Hypixel api key yet! You can do this by doing /api in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.')
         else:
             uuid = get_uuid(username)
             if uuid['code'] != 'player.found':
-                await ctx.send(f'Sorry, an unexpected error occured. `{uuid['code']}`')
+                await ctx.send(f"Sorry, an unexpected error occured. `{uuid['code']}`")
             else:
                 async with aiohttp.ClientSession() as session:
                     url = f"{hypixel_base_url}/status?key={key.get("key")}&uuid={uuid['player']['meta']['raw_id']}
