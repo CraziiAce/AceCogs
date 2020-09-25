@@ -10,8 +10,6 @@ class Skyblock(commands.Cog):
         self.session = aiohttp.ClientSession()
         self.playerdb_base_url = "https://playerdb.co/api/player/minecraft/"
         self.hypixel_base_url = "https://api.hypixel.net"
-        self.key=("0e1271ff-16ca-430f-b53e-8750d9ff683f")
-
 
     async def get_uuid(self, username):
         """A bot function to get the uuid of a player"""
@@ -36,9 +34,9 @@ class Skyblock(commands.Cog):
         online = "is not online"
         if key.get("key") is None:
             await ctx.send('You haven\'t set the Hypixel api key yet! You can do this by doing /api in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.')
-            
+
         else:
-            uuid = await self.get_uuid(self, username)
+            uuid = await self.get_uuid(self=self, username=username)
 
             if uuid['code'] != 'player.found':
                 await ctx.send(f"Sorry, an unexpected error occured. `{uuid['code']}`")
