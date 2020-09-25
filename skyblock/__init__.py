@@ -1,4 +1,4 @@
-from .skyblock import SkyBlock
+from .skyblock import Skyblock
 
 
 def setup(bot):
