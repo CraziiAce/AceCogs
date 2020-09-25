@@ -13,7 +13,7 @@ class Skyblock(commands.Cog):
         self.key=("0e1271ff-16ca-430f-b53e-8750d9ff683f")
 
 
-    async def get_uuid(self, username):
+    async def get_uuid(username):
         """A bot function to get the uuid of a player"""
         async with aiohttp.ClientSession() as session:
             url = f"{self.playerdb_base_url}{username}"
