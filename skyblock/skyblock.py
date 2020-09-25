@@ -37,7 +37,7 @@ class Skyblock(commands.Cog):
                 await ctx.send(f"Sorry, an unexpected error occured. `{uuid['code']}`")
             else:
                 async with aiohttp.ClientSession() as session:
-                    url = f"{hypixel_base_url}/status?key={key.get('key')}&uuid={uuid['player']['meta']['raw_id']}
+                    url = f"{hypixel_base_url}/status?key={key.get('key')}&uuid={uuid['player']['meta']['raw_id']}""
                     async with session.get(url) as resp:
                         resp = await resp.json
                 if resp['session']['online'] == True:
