@@ -10,8 +10,6 @@ class Skyblock(commands.Cog):
         self.session = aiohttp.ClientSession()
         self.playerdb_base_url = "https://playerdb.co/api/player/minecraft/"
         self.hypixel_base_url = "https://api.hypixel.net"
-        self.key=("0e1271ff-16ca-430f-b53e-8750d9ff683f")
-
 
     async def get_uuid(self, username):
         """A bot function to get the uuid of a player"""
@@ -19,7 +17,7 @@ class Skyblock(commands.Cog):
             url = f"{self.playerdb_base_url}{username}"
             async with session.get(url) as resp:
                 resp = await resp.json
-            return resp
+        return resp
 
     @commands.group()
     async def skyblock(self, ctx):
