@@ -37,15 +37,15 @@ class Skyblock(commands.Cog):
                 await ctx.send(f"Sorry, an unexpected error occured. `{uuid['code']}`")
             else:
                 async with aiohttp.ClientSession() as session:
-                    url = f"{hypixel_base_url}/status?key={key.get('key')}&uuid={uuid['player']['meta']['raw_id']}"
+                    url = f"{hypixel_base_url}/status?key={key.get('key')}&uuid={uuid['player']['meta']['raw_id']}""
                     async with session.get(url) as resp:
                         resp = await resp.json
                 if resp['session']['online'] == True:
                     online = 'is online'
                 embed = discord.Embed(
-                title = f"{username} {online}"
+                title = f"{username} {online}",
                 color = await ctx.embed_colour()
             )
                 embed.set_thumbnail(uuid['player']['meta']['avatar'])
-                if online == 'is online'
+                if online == 'is online':
                     embed.add_field(name="Game info", value=f"**Game:** {resp['session']['gameType']}\n**Mode:** {resp['session']['mode']}\n**Map:** {resp['session']['map']}")
