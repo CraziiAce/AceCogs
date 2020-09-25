@@ -32,7 +32,7 @@ class Skyblock(commands.Cog):
         if key.get("key") is None:
             await ctx.send('You haven\'t set the Hypixel api key yet! You can do this by doing /api in any Hypixel lobby, and then doing `[p]set api hypixel key <your_key>`.')
         else:
-            uuid = get_uuid(self, username)
+            uuid = await get_uuid(self, username)
             if uuid['code'] != 'player.found':
                 await ctx.send(f"Sorry, an unexpected error occured. `{uuid['code']}`")
             else:
