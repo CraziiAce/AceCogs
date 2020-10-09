@@ -78,6 +78,7 @@ class News(commands.Cog):
                     page=0,
                     timeout=30,
                 )
+            log.debug(f"A news embed with {len(embeds)} pages has been sent.")
         except discord.errors.HTTPException:
             await ctx.send("An unexpected error occurred. This usually means that the API returned an invalid image url")
             log.debug("The news API returned an invalid image!")
