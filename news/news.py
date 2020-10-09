@@ -4,6 +4,9 @@ from redbot.core.utils.menus import menu, DEFAULT_CONTROLS
 
 import discord
 import aiohttp
+import logging
+
+log = logging.getLogger("red.acecogs.news")
 
 class News(commands.Cog):
     """Get whats happening in the world right from Discord."""
@@ -77,3 +80,4 @@ class News(commands.Cog):
                 )
         except discord.errors.HTTPException:
             await ctx.send("An unexpected error occurred. This usually means that the API returned an invalid image url")
+            log.debug("The news API returned an invalid image!")
