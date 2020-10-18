@@ -162,9 +162,9 @@ class Memes(commands.Cog):
             emb = discord.Embed(
                 color = await ctx.embed_colour()
             )
-            emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={member.avatar_url}")
+            emb.set_image(url=f"https://some-random-api.ml/canvas/triggered?avatar={member.avatar_url}")
         else:
             emb = discord.Embed(
                 color = await ctx.embed_colour()
             )
-            emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={ctx.author.avatar_url}")
+            emb.set_image(url=f"https://some-random-api.ml/canvas/triggered?avatar={ctx.author.avatar_url}")
