@@ -160,11 +160,11 @@ class Memes(commands.Cog):
     async def trigger(self, ctx, member: discord.Member = None):
         if member:
             emb = discord.Embed(
-                color = await ctx.embed_colour
+                color = await ctx.embed_colour()
             )
             emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={member.avatar_url}")
         else:
             emb = discord.Embed(
-                color = await ctx.embed_colour
+                color = await ctx.embed_colour()
             )
             emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={ctx.author.avatar_url}")
