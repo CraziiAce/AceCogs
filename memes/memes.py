@@ -144,3 +144,27 @@ class Memes(commands.Cog):
         )
         embed.set_image(url=f"https://api.alexflipnote.dev/pornhub?text={text1}&text2={text2}")
         await ctx.send(embed=embed)
+    @commands.command()
+    async def binary(self, ctx, text: str):
+        async with aiohttp.ClientSession() as session:
+          async with session.get(f'https://some-random-api.ml/binary?text={text}') as resp:
+            resp = await resp.json()
+        await ctx.send(resp['binary'])
+    @commands.command()
+    async def joke(self, ctx):
+        async with aiohttp.ClientSession() as session:
+          async with session.get('https://some-random-api.ml') as resp:
+            resp = await resp.json()
+        await ctx.send(resp['joke'])
+    @commands.command()
+    async def trigger(self, ctx, member: discord.Member = None):
+        if member:
+            emb = discord.Embed(
+                color = await ctx.embed_colour
+            )
+            emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={member.avatar_url}")
+        else:
+            emb = discord.Embed(
+                color = await ctx.embed_colour
+            )
+            emb.set_image(f"https://some-random-api.ml/canvas/triggered?avatar={ctx.author.avatar_url}")
